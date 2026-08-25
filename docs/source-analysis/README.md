@@ -156,8 +156,8 @@ Summarize decisions only after the evidence sections are complete. Use terms suc
 
 | Order | Source | Status |
 |---:|---|---|
-| 1 | lensetek/Fiction-book-agent-skills | Draft ready for review |
-| 2 | danjdewhurst/story-skills | Not started |
+| 1 | lensetek/Fiction-book-agent-skills | Merged baseline complete |
+| 2 | danjdewhurst/story-skills | Draft ready for review |
 | 3 | zenstory-ai/oh-story-claudecode | Not started |
 | 4 | haowjy/creative-writing-skills | Not started |
 | 5 | JeroTan/novel-writer-english | Not started |
@@ -166,4 +166,4 @@ Summarize decisions only after the evidence sections are complete. Use terms suc
 
 ## Next Step
 
-Review `lensetek.md`. After it is approved and merged, create the Dewhurst source-analysis branch from the updated `development` branch unless the Lensetek findings justify changing the initial recommended order.
+Review `danjdewhurst-story-skills.md`. After it is approved and merged, create the Zenstory source-analysis branch from the updated `development` branch unless the Dewhurst findings justify changing the initial recommended order.
