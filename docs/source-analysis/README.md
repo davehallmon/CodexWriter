@@ -4,45 +4,166 @@ This folder contains detailed analysis documents for each source repository revi
 
 ## Purpose
 
-Each source repository (Lensetek, story-skills, creative-writing-skills, etc.) will be examined for its architecture, strengths, weaknesses, and licensing status. The analysis will inform the design decisions documented in `ARCHITECTURE.md` and the cross‑walk table in `docs/crosswalk.md`.
+Each source repository will be examined for architecture, workflow, state storage, context management, strengths, weaknesses, human-in-the-loop behavior, and licensing/provenance. The source analyses are the evidence base for later decisions in `ARCHITECTURE.md` and `docs/crosswalk.md`.
 
-## File Format
+During Phase 1, **observed source behavior must be separated from CodexWriter recommendations**. Attractive patterns should be documented as candidates until the comparative analysis supports adopting them.
 
-Each source should have its own Markdown file named after the repository, e.g.:
+## Files
 
 - `lensetek.md`
 - `danjdewhurst-story-skills.md`
+- `zenstory-ai.md`
 - `haowjy-creative-writing-skills.md`
 - `jero-tan-novel-writer-english.md`
 - `wgwtest-novel-writing.md`
 - `rhavekost-author-toolkit.md`
-- `zenstory-ai.md`
 
-Each file should include:
+## Required Analysis Structure
 
-- **Repository URL**
-- **License** (and any discrepancies, e.g., badge vs. actual file)
-- **Overview** (high-level description)
-- **Architecture** (key components, agent roles, file structure)
-- **Strengths** (what it does well)
-- **Weaknesses / Gaps** (what it lacks or does poorly)
-- **Relevance to CodexWriter** (what we might adopt or adapt)
-- **Detailed Notes** (quotes, specific observations, links to relevant files)
+Each source analysis should include the following sections.
+
+### 1. Repository Snapshot
+
+- Repository URL
+- Primary language
+- Project maturity / activity observations
+- Skill/agent/module count where relevant
+- Runtime/platform compatibility
+
+### 2. Licensing and Provenance
+
+- Direct `LICENSE` link and detected license
+- Direct `NOTICE` link if present; otherwise record `Not found`
+- Direct `ATTRIBUTION.md` or equivalent if present; otherwise record `Not found`
+- Upstream/derivative lineage when the repository is itself a translation, fork, vendor bundle, or re-architecture
+- Any discrepancy between README badges/claims and actual repository files
+
+### 3. Architectural Thesis
+
+- What problem is the repository designed to solve?
+- What is its primary organizing principle?
+- What responsibilities are treated as first-class modules/skills/agents?
+
+### 4. Workflow and Orchestration
+
+- Entry points / routing
+- Workflow phases or stages
+- Specialist role boundaries
+- Required vs. optional stages
+- Stop conditions and handoffs
+- Human approval gates
+
+### 5. State Storage Model
+
+Document actual implementation rather than inferring a preferred CodexWriter model.
+
+- Static/canonical story facts: where are they stored?
+- Dynamic/current story state: where is it stored?
+- Which artifact is authoritative when files disagree?
+- Human-readable vs. machine-readable state
+- Story-history representation: snapshots, deltas, logs, rewritten current state, etc.
+- How state is updated after drafting
+- How state is updated after revising an earlier chapter
+- Stale/conflicting update protections, if any
+- Promises/payoffs, questions, foreshadowing, timeline, relationships, objects, and character-knowledge representation
+- Author preference/voice memory and whether it is separated from story canon
+- Treatment of exploratory/non-canonical material
+
+**Important:** Zenstory's single `_tracking-state.json` model is only one hypothesis to compare. Do not assume CodexWriter will use it.
+
+### 6. Context Management
+
+- What is loaded before a task?
+- What is excluded?
+- Full-text vs. summary/structured context
+- Sharding/indexing strategy
+- Near-field vs. far-field behavior
+- Context-budget limits where explicit
+- What happens when summaries/state conflict with manuscript prose?
+- Cross-agent handoff context
+
+### 7. Creative-Craft Model
+
+- Planning methodology
+- Character/world/plot guidance
+- Scene/prose rules
+- Voice/style preservation
+- Genre-specific knowledge
+- Narrative epistemology / POV / causality rules where relevant
+
+### 8. Evaluation and Continuity
+
+- Continuity checks
+- Deterministic scripts/validators
+- Model-judgment review
+- Critic/editor separation
+- Reader simulation/testing
+- Finding/report formats
+- Whether audit and repair are separated
+
+### 9. Human-in-the-Loop Model
+
+- Mandatory approval gates
+- Optional confirmations
+- Scope-transition rules
+- Canon-promotion decisions
+- Edit-application behavior
+- Explicit stopping points
+
+### 10. Runtime and Maintenance
+
+- Setup/bootstrap behavior
+- Capability detection
+- Multi-agent vs. solo fallbacks
+- Import/migration/doctor/reindex/update tools
+- CI/test integration
+- Runtime assumptions and failure modes
+
+### 11. Strengths
+
+What the repository does especially well, supported by concrete files or workflow evidence.
+
+### 12. Weaknesses / Gaps
+
+What is shallow, missing, over-opinionated, brittle, domain-specific, or poorly enforced.
+
+### 13. Relevance to CodexWriter
+
+Separate:
+
+- **Observed reusable responsibility**
+- **Candidate architectural borrowing**
+- **Implementation-level borrowing requiring license/provenance handling**
+- **Patterns CodexWriter should avoid**
+
+### 14. Detailed Evidence
+
+Include direct links to relevant `SKILL.md`, reference, schema, script, LICENSE, NOTICE, and attribution files. Use short quotes only when they materially establish an implementation claim.
+
+### 15. CodexWriter Disposition
+
+Summarize decisions only after the evidence sections are complete. Use terms such as:
+
+- Retain responsibility
+- Adapt
+- Merge candidate
+- Split candidate
+- Extension candidate
+- Defer
+- Reject
 
 ## Status
 
-| Source | Status |
-|--------|--------|
-| lensetek/Fiction-book-agent-skills | Not started |
-| danjdewhurst/story-skills | Not started |
-| haowjy/creative-writing-skills | Not started |
-| JeroTan/novel-writer-english | Not started |
-| wgwtest/novel-writing | Not started |
-| rhavekost/author-toolkit | Not started |
-| zenstory-ai | Not started |
+| Order | Source | Status |
+|---:|---|---|
+| 1 | lensetek/Fiction-book-agent-skills | Not started |
+| 2 | danjdewhurst/story-skills | Not started |
+| 3 | zenstory-ai/oh-story-claudecode | Not started |
+| 4 | haowjy/creative-writing-skills | Not started |
+| 5 | JeroTan/novel-writer-english | Not started |
+| 6 | wgwtest/novel-writing | Not started |
+| 7 | rhavekost/author-toolkit | Not started |
 
-## Next Steps
+## Next Step
 
-- Populate each source analysis file with the details listed above.
-- Use the cross‑walk table to map improvements to CodexWriter's planned skills.
-- Update `ARCHITECTURE.md` as decisions are made.
+Begin `lensetek.md`. Once that baseline analysis is complete, move directly to Dewhurst before revisiting the higher-level architecture.
