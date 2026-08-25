@@ -1,7 +1,8 @@
 # Crosswalk: Lensetek Roles → Improvement Sources
 
-> This table is a Phase 1 planning tool, not a final architecture decision.  
-> Lensetek supplies the initial responsibility taxonomy; the seven source analyses will determine what CodexWriter should retain, adapt, merge, split, or omit.
+> This table is a Phase 1 mapping/planning tool, not a final architecture decision.  
+> Lensetek supplies the initial responsibility taxonomy; the seven source analyses will determine what CodexWriter should retain, adapt, merge, split, or omit.  
+> Keep architectural rationale, design arguments, and final module definitions in `ARCHITECTURE.md` or `docs/architecture-audit.md`; this file should remain a compact evidence-backed cross-reference.
 
 ## Working Crosswalk
 
@@ -57,7 +58,9 @@ Do **not** choose a canonical storage model from this crosswalk. Each source ana
 
 Zenstory's `_tracking-state.json` + deterministic derived views is one candidate pattern to compare, not the current CodexWriter decision.
 
-## Source Analysis Order
+## Initial Recommended Source Analysis Order
+
+This is an initial planning sequence only and may be adjusted as earlier source analyses reveal better comparison paths.
 
 1. Lensetek — baseline responsibility taxonomy and workflow gates
 2. Dewhurst — persistent state and deterministic continuity comparison
@@ -69,6 +72,8 @@ Zenstory's `_tracking-state.json` + deterministic derived views is one candidate
 
 ## Usage
 
+- Keep this file concise: map responsibilities, evidence sources, provisional dispositions, and open questions only.
 - Update rows only when source-analysis evidence supports the change.
 - Prefer `Retain`, `Adapt`, `Merge candidate`, `Extension candidate`, or `Defer` over premature keep/replace binaries.
+- Put detailed architectural reasoning in `ARCHITECTURE.md` or `docs/architecture-audit.md`, not here.
 - Record implementation-specific borrowing and licensing provenance in the relevant source analysis and `ATTRIBUTION.md` before copying any substantial source material.
