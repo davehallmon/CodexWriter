@@ -8,6 +8,8 @@
 
 This audit compares the seven reference repositories against CodexWriter's current architecture before deep source-by-source analysis begins. It distinguishes **observed implementation patterns** from **CodexWriter hypotheses** so that attractive ideas are not promoted into design decisions before the source analyses establish how each repository actually works.
 
+> **Interpretation rule:** unless a statement is explicitly identified as an observed source fact or an existing CodexWriter Phase 1 principle, new architectural concepts in this audit are **candidate, provisional, or for discussion only**. They should not be treated as adopted design decisions.
+
 ## Reference Set
 
 1. `lensetek/Fiction-book-agent-skills`
@@ -21,7 +23,7 @@ This audit compares the seven reference repositories against CodexWriter's curre
 ## Guardrails From This Audit
 
 - Lensetek remains the baseline responsibility taxonomy for the first crosswalk pass.
-- Dewhurst remains the second source analysis after Lensetek because it directly operationalizes continuity and persistent story state.
+- Dewhurst remains the initial second source analysis after Lensetek because it directly operationalizes continuity and persistent story state; this order may change if the Lensetek analysis reveals a better comparison path.
 - Zenstory's single-authoritative-state design is a **candidate pattern only** until all source analyses document their actual storage models.
 - `continuity` remains one CodexWriter skill for now. Whether state maintenance and continuity validation should eventually split is deferred.
 - Architectural layers may be documented now, but module boundaries remain provisional until the source analyses are complete.
@@ -53,7 +55,7 @@ The current CodexWriter creative pipeline is directionally sound, but the source
 
 ## Provisional Layered Model
 
-The audit supports documenting a layered architecture, but not yet freezing skill boundaries.
+The audit supports documenting a layered architecture as a **research scaffold**, but not freezing skill boundaries.
 
 ### Control / Coordination
 
@@ -90,7 +92,7 @@ The audit supports documenting a layered architecture, but not yet freezing skil
 - accessibility formatting
 - publishing/export
 
-This model is a research scaffold. Final module names and boundaries should be decided after the seven source analyses.
+This model is provisional and for discussion. Final module names and boundaries should be decided after the seven source analyses.
 
 ## State Architecture: Hypotheses, Not Decisions
 
@@ -121,16 +123,16 @@ Direct evidence:
 - [`state-tracking.md`](https://github.com/zenstory-ai/oh-story-claudecode/blob/main/skills/story-long-write/references/state-tracking.md) defines chapter-context filtering and says to retain only information that would cause the chapter to be written incorrectly if omitted. It filters for current character state, directly relevant causal history/foreshadowing, and applicable world constraints.
 - [`story-long-write/SKILL.md`](https://github.com/zenstory-ai/oh-story-claudecode/blob/main/skills/story-long-write/SKILL.md) independently states the principle "load only necessary information" and describes author-memory retrieval as separate from per-book tracking.
 
-### Why Zenstory Is Not Analysis #2
+### Why Zenstory Is Not the Initial Analysis #2
 
-The files substantiate the state-engine claims, but Dewhurst remains the better second analysis because:
+The files substantiate the state-engine claims, but Dewhurst is the current initial recommendation for the second analysis because:
 
 1. Dewhurst's central thesis is directly about continuity as a deterministic story contract, making it the cleanest contrast with Lensetek's continuity checker.
 2. Its `story` CLI exposes explicit validation, links, continuity, import, migration, doctor, and CI behaviors around a plain-text project format.
-3. Comparing Lensetek → Dewhurst first lets us establish the difference between after-the-fact continuity auditing and state-backed deterministic continuity before introducing Zenstory's more opinionated transactional state engine.
+3. Comparing Lensetek → Dewhurst first would let us establish the difference between after-the-fact continuity auditing and state-backed deterministic continuity before introducing Zenstory's more opinionated transactional state engine.
 4. Zenstory also combines market/deconstruction assumptions, runtime adapters, hooks, multi-agent deployment, and a web-novel-specific workflow. Those are valuable, but they make it harder to isolate the state design until the simpler continuity comparison has been documented.
 
-**Recommended order:** Lensetek → Dewhurst → Zenstory → Haowjy → JeroTan → wgwtest → Rhavekost.
+**Initial recommended order:** Lensetek → Dewhurst → Zenstory → Haowjy → JeroTan → wgwtest → Rhavekost. This sequence is intentionally adjustable based on findings from earlier analyses.
 
 ## Skill-List Audit
 
@@ -187,9 +189,9 @@ Lensetek's phase gates remain valuable. Candidate refinements from Rhavekost and
 
 ### Deterministic vs. Judgment-Based Evaluation
 
-A useful candidate principle is: **deterministic means executable; judgment means judgment.**
+A useful **candidate principle for discussion** is: **deterministic means executable; judgment means judgment.**
 
-Schema validation, reference integrity, timeline ordering, known state, and measurable counts can be deterministic when backed by executable tooling. Character motivation, pacing quality, prose quality, emotional payoff, and voice fidelity remain model/human judgment and should not be presented as mechanically proven.
+Schema validation, reference integrity, timeline ordering, known state, and measurable counts can be deterministic when backed by executable tooling. Character motivation, pacing quality, prose quality, emotional payoff, and voice fidelity remain model/human judgment and should not be presented as mechanically proven if this principle is adopted.
 
 ## Licensing and Attribution Register
 
@@ -207,7 +209,9 @@ The following links should be preserved in the source analyses and later attribu
 
 This table is a research record, not legal advice. Each source analysis should verify license state again at the time of analysis because repositories can change.
 
-## Phase 1 Source Order
+## Initial Recommended Phase 1 Source Order
+
+This is a working comparison sequence, not a fixed commitment. It may be adjusted based on what earlier analyses reveal.
 
 1. `lensetek/Fiction-book-agent-skills` — establish the baseline taxonomy, workflow phases, HITL gates, and all 16 responsibilities.
 2. `danjdewhurst/story-skills` — compare persistent state and deterministic continuity directly against the Lensetek model.
