@@ -2,6 +2,8 @@
 
 > This document describes the high-level design direction of CodexWriter.  
 > It is a working draft. During Phase 1, architectural patterns are hypotheses until the source analyses establish how each reference repository actually works.
+>
+> **Phase 1 interpretation rule:** unless a concept is explicitly identified as an existing core principle or part of the stable Phase 1 working skill list, new layers, capabilities, artifacts, gates, and module boundaries in this document are **candidate/provisional ideas for discussion**, not adopted architecture.
 
 ## 1. Goals
 
@@ -36,7 +38,7 @@ See `docs/architecture-audit.md` for direct evidence, licensing links, and audit
 
 ## 4. Provisional Layered Model
 
-The current evidence suggests that CodexWriter should be understood as layers rather than one strictly linear chain. This model is provisional.
+The current evidence suggests that CodexWriter may be better understood as layers rather than one strictly linear chain. This model is **provisional and for discussion**.
 
 ### 4.1 Control / Coordination
 
@@ -57,7 +59,7 @@ Current author-facing core:
 - `scene-planning`
 - `scene-writing`
 
-World, character, and plot work may iterate rather than execute in a rigid one-way order.
+World, character, and plot work may iterate rather than execute in a rigid one-way order; this is a provisional workflow observation to test during source analysis.
 
 ### 4.3 Evaluation / Revision
 
@@ -66,11 +68,11 @@ World, character, and plot work may iterate rather than execute in a rigid one-w
 - `continuity` — kept as one skill during Phase 1
 - `reader-simulation`
 
-Reader simulation should be evaluated for deliberate context isolation rather than merely persona prompting.
+Deliberate context isolation for reader simulation is a candidate requirement to evaluate rather than a committed behavior.
 
 ### 4.4 Optional Extensions
 
-Capabilities present in one or more source repositories but not required in the initial novel-authoring core:
+Candidate capabilities present in one or more source repositories but not currently proposed as mandatory stages in the initial novel-authoring core:
 
 - market/trend research
 - benchmark/story deconstruction
@@ -122,7 +124,7 @@ Only after comparing all seven sources should CodexWriter decide among alternati
 
 ## 7. Context Management Strategy
 
-Current principles to preserve and test:
+Existing context-management principles to preserve include sharding, selective loading, and pre-write context reload. The following refinements remain **candidate rules to test**:
 
 - Document sharding for large projects.
 - Level-of-detail loading: full prose near the current task and structured/summary context for distant material.
@@ -131,11 +133,11 @@ Current principles to preserve and test:
 - Post-write state/context updates when durable facts change.
 - A smallest-sufficient-context rule: load information whose omission could cause the current task to be wrong, while excluding unrelated cold context.
 
-The source analyses must also document what wins when summaries, structured state, and manuscript prose disagree.
+The source analyses must also document what wins when summaries, structured state, and manuscript prose disagree before CodexWriter adopts an authority rule.
 
 ## 8. Human-in-the-Loop Strategy
 
-Lensetek's phase approval gates remain an important reference, but CodexWriter should also evaluate event-based stopping points found in other repositories.
+Lensetek's phase approval gates remain an important reference. Additional event-based stopping points found in other repositories are **candidate refinements for discussion**.
 
 Candidate HITL gate types:
 
@@ -146,11 +148,11 @@ Candidate HITL gate types:
 - exception handling when a deterministic check flags something that may be intentional
 - final publication/export approval
 
-Agents should not silently expand scope simply because another workflow stage is available.
+The principle that agents should not silently expand scope is also to be tested and specified from source evidence before final adoption.
 
 ## 9. Deterministic vs. Judgment-Based Evaluation
 
-Candidate design rule: **deterministic means executable; judgment means judgment.**
+Candidate design rule for discussion: **deterministic means executable; judgment means judgment.**
 
 Examples that may be deterministic when backed by schemas/scripts:
 
@@ -170,7 +172,7 @@ Examples that remain model/human judgment:
 - emotional payoff
 - voice fidelity
 
-CodexWriter should never present a judgment-based score as mechanically proven.
+A candidate quality principle is that CodexWriter should distinguish mechanically verified findings from judgment-based assessments rather than presenting the latter as mechanically proven.
 
 ## 10. Workflow / Branch Strategy
 
@@ -180,7 +182,9 @@ CodexWriter should never present a judgment-based score as mechanically proven.
 
 The current Phase 1 audit is isolated on `architecture/phase1-audit` and is intentionally time-boxed before source analysis begins.
 
-## 11. Phase 1 Source Order
+## 11. Initial Recommended Phase 1 Source Order
+
+This is the **initial recommended order**, not a fixed sequence. It may be adjusted if earlier source analyses reveal a better comparison path.
 
 1. `lensetek/Fiction-book-agent-skills`
 2. `danjdewhurst/story-skills`
