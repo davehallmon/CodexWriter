@@ -9,7 +9,7 @@
 
 ## Evidence Labels
 
-- **Observed** — directly supported by repository files, executable behavior, tests, or GitHub metadata at the analyzed commit.
+- **Observed** — directly supported by repository files, executable behavior, tests, or date-stamped GitHub metadata at the analyzed commit. Every observed behavior claim is tied to pinned file-and-line evidence in the claim-level traceability map in Section 14; repository popularity/activity fields are metadata snapshots rather than commit-contained behavior.
 - **Inference** — an architectural interpretation derived from observed evidence.
 - **Uncertainty** — a question the inspected evidence does not settle, a runtime-dependent behavior, or a claim that still needs empirical validation.
 
@@ -68,7 +68,7 @@ The project is relatively young but operationally ambitious. Its large regressio
 
 ### Observed
 
-- [`LICENSE`](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/LICENSE) is present and contains the MIT License with a 2025–2026 copyright notice for `oh-story-claudecode`.
+- [`LICENSE`, lines 1–21](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/LICENSE#L1-L21) is present and contains the MIT License with a 2025–2026 copyright notice for `oh-story-claudecode`.
 - `NOTICE` was not found in the pinned repository tree.
 - `ATTRIBUTION.md` was not found in the pinned repository tree.
 - GitHub does not classify the repository as a fork.
@@ -262,7 +262,7 @@ The default hot-context selection also limits active characters to six, active f
 
 #### 5.4 Transaction protocol
 
-The [`tracking transaction guide`](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-long-write/references/tracking-transaction.md) and implementation require all tracking writes to pass through `tracking_commit.py`; direct hand editing is prohibited by the workflow.
+The [`tracking transaction guide`, lines 7–36](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-long-write/references/tracking-transaction.md#L7-L36) and implementation require all tracking writes to pass through `tracking_commit.py`; direct hand editing is prohibited by the workflow.
 
 For an append transaction, the tool:
 
@@ -275,15 +275,15 @@ For an append transaction, the tool:
 7. removes orphaned character snapshots; and
 8. atomically replaces `_tracking-state.json` last as the commit point.
 
-Each file replacement uses a same-directory temporary file, flush and filesystem sync, and `os.replace`. The transaction as a whole is not a filesystem-wide atomic operation. A derived-view write can succeed before a later write fails. In that case the JSON authority remains at the old revision, the `check` command detects drift, and rerunning the same transaction can repair the projections.
+Each file replacement uses a same-directory temporary file, flush and filesystem sync, and `os.replace`. The transaction as a whole is not a filesystem-wide atomic operation. A derived-view write can succeed before a later write fails. In that case the JSON authority remains at the old revision, the `check` command detects drift, and rerunning the same transaction can repair the projections. The write order is visible in [`apply_transaction`, lines 1039–1068](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-long-write/scripts/tracking_commit.py#L1039-L1068), and the failure/retry behavior is exercised in [`test_partial_view_write_keeps_old_authority_and_same_transaction_can_retry`, lines 256–279](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/scripts/test-tracking-commit.py#L256-L279).
 
-The expected revision rejects a transaction prepared from stale state. It is explicitly a sequential stale-write guard, not a lock. The project requires one serial writer per book and does not support multiple agents or terminals committing story state concurrently.
+The expected revision rejects a transaction prepared from stale state. The upstream transaction contract explicitly describes it as rejecting an old-state sequential stale transaction and explicitly says it is not a concurrency lock; it also requires serial commits per book ([`tracking-transaction.md`, lines 26–32](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-long-write/references/tracking-transaction.md#L26-L32)). The implementation enforces exact revision equality ([`tracking_commit.py`, lines 843–852](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-long-write/scripts/tracking_commit.py#L843-L852)), and the stale-revision test verifies rejection after a newer commit ([`test-tracking-commit.py`, lines 281–292](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/scripts/test-tracking-commit.py#L281-L292)). This classification is therefore **Observed**, not inferred.
 
 #### 5.5 History and revision behavior
 
-The state model stores the current snapshot plus bounded chapter records. It is not an event-sourced replay log.
+The state model stores the current snapshot plus bounded chapter records. The transaction contract defines the authority, records, and projections directly ([`tracking-transaction.md`, lines 7–36](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-long-write/references/tracking-transaction.md#L7-L36)).
 
-The [`earlier-chapter revision workflow`](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-long-write/references/workflow-revision.md) requires the agent to inspect the revised chapter and all affected material through the latest chapter, recalculate impacted character, foreshadowing, and timeline values, and submit their current values in one `mode=revision` transaction. The script validates and merges the supplied current values. It does not mechanically replay chapters after the revised chapter or derive new state directly from manuscript prose.
+The [`earlier-chapter revision workflow`, lines 56–66](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-long-write/references/workflow-revision.md#L56-L66) directly instructs the executing agent to inspect affected material from revised chapter X through latest chapter M, recalculate affected current values, and submit those values in one `mode=revision` transaction. The transaction contract likewise requires affected objects to be submitted at their current values through the latest written chapter ([`tracking-transaction.md`, lines 136–147](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-long-write/references/tracking-transaction.md#L136-L147)). The implementation then normalizes and merges the submitted transaction into current state ([`tracking_commit.py`, lines 843–852](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-long-write/scripts/tracking_commit.py#L843-L852), [`887–963`](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-long-write/scripts/tracking_commit.py#L887-L963), and [`1039–1068`](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-long-write/scripts/tracking_commit.py#L1039-L1068)).
 
 An old-chapter revision preserves the existing next-chapter commitments unless the latest chapter itself is revised. Current rows retain their later update chapter rather than moving that marker backward. After the state commit, the workflow scans later prose and reports potentially affected chapters; the user decides whether to revise them.
 
@@ -332,13 +332,15 @@ Zenstory answers Dewhurst's distributed-state ambiguity only **inside the dynami
 
 The state-last protocol is a pragmatic recoverability design. It keeps the canonical revision from advancing unless all preceding writes succeed, but it relies on `check` plus idempotent retry rather than rollback or a journaled multi-file transaction.
 
+Because the revision workflow assigns the cross-chapter inspection and recalculation to the executing agent, while `tracking_commit.py` consumes the resulting transaction and contains no manuscript-replay path, this analysis characterizes old-chapter propagation as **agent-guided recalculation rather than deterministic replay**. That characterization is an **Inference** from the directly observed workflow and implementation—not an upstream label.
+
 The separate author-memory authority is a valuable isolation boundary: user preference can persist without becoming fictional fact. Its precedence ladder is more explicit than the book-state precedence among prose, outlines, static settings, and dynamic state.
 
 ### Uncertainty
 
 - Semantic transaction content is produced by an agent or user workflow. Structurally valid JSON can still encode a mistaken interpretation of the prose.
 - The chapter records are not demonstrated to contain enough information to reconstruct every historical state mechanically.
-- Revision propagation is workflow-guided recalculation, not deterministic replay; correctness depends on the agent's inspection of chapters from the revision point through the current endpoint.
+- The inspected files do not establish how reliably the executing agent identifies every downstream effect while recalculating state from the revision point through the current endpoint.
 - The expected revision protects sequential commits but does not solve true concurrent writers, filesystem races, or distributed synchronization.
 - The transaction code intentionally allows temporary derived-view drift after a partial failure; recovery is tested, but automatic rollback is absent.
 - The analysis did not establish a universal rule for deciding whether prose or tracking is correct when they disagree semantically.
@@ -630,7 +632,7 @@ The repository evidence shows disciplined mechanisms. It does not prove that eve
 
 1. **No universal story authority.** `_tracking-state.json` governs dynamic tracking, not every setting, outline, and prose fact. Cross-domain conflicts still require interpretation.
 2. **Semantic state remains model-authored.** Schema checks cannot determine whether extracted facts accurately represent prose.
-3. **No automatic downstream replay.** Revising an older chapter requires agent-led recalculation through the latest chapter; the script does not replay later events.
+3. **Earlier-chapter propagation is workflow-computed.** The workflow directly assigns inspection and recalculation from revised chapter X through latest chapter M to the executing agent, which then submits current values to the transaction tool ([`workflow-revision.md`, lines 56–66](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-long-write/references/workflow-revision.md#L56-L66)).
 4. **No true multi-writer support.** Expected revisions reject stale sequential updates but provide no lock or concurrency protocol.
 5. **Not a whole-transaction atomic commit.** Individual replacements are atomic, but a mid-transaction failure can leave some derived files ahead of canonical state until repair.
 6. **History is incomplete for reconstruction.** Current snapshots plus bounded chapter records are not presented as a sufficient event log.
@@ -646,6 +648,8 @@ The repository evidence shows disciplined mechanisms. It does not prove that eve
 ### Inference
 
 The largest architectural risk is not centralization itself but **false confidence at the boundary between validated structure and unvalidated semantics**. A successful transaction means the state is well-formed and internally synchronized, not that it is narratively correct.
+
+The absence of a manuscript-replay path in the inspected transaction implementation, combined with the workflow's explicit assignment of recalculation to the agent, supports the inference that Zenstory does **not** provide automatic deterministic downstream replay.
 
 The second risk is portability. Zenstory's strongest behavior depends on setup, trusted project configuration, available hooks, Python/Node, and disciplined serial execution. A skills-only copy retains much of the instruction text but loses important control-plane guarantees.
 
@@ -726,6 +730,53 @@ Zenstory most strongly supports a provisional split between creative responsibil
 
 ## 14. Detailed Evidence
 
+### Observed: claim-level traceability map
+
+This map is the claim-level source key for the document's **Observed** behavior statements. Each link names the exact upstream file, relevant line range, and immutable analyzed blob revision. A prose paragraph may consolidate adjacent statements from these ranges; conclusions that go beyond what the ranges directly establish are labeled **Inference**. Date-stamped GitHub stars, forks, issues, language, and fork status in the repository snapshot are live metadata observations rather than behavior claims contained in the commit.
+
+| Observed claim family | Exact pinned evidence |
+|---|---|
+| Product scope, core pillars, and full pipeline | [`README_EN.md`, lines 5–18](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/README_EN.md#L5-L18) and [`29–83`](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/README_EN.md#L29-L83) |
+| Thirteen skills and their declared responsibilities | [`README_EN.md`, lines 135–155](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/README_EN.md#L135-L155) |
+| Dashboard locality and edit-conflict behavior | [`README_EN.md`, lines 157–165](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/README_EN.md#L157-L165) |
+| Seven specialist agents and declared role boundaries | [`README_EN.md`, lines 250–264](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/README_EN.md#L250-L264); review-side execution boundaries are in [`story-review/SKILL.md`, lines 218–360](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-review/SKILL.md#L218-L360) |
+| Hook inventory and blocking/advisory distinction | [`README_EN.md`, lines 266–279](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/README_EN.md#L266-L279) |
+| Project-layer separation, tracking files, and author-memory separation | [`README_EN.md`, lines 281–350](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/README_EN.md#L281-L350) |
+| Advertised platform support and capability differences | [`README_EN.md`, lines 384–393](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/README_EN.md#L384-L393) and [`story-setup/SKILL.md`, lines 273–335](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-setup/SKILL.md#L273-L335) |
+| Acknowledgments/provenance statements | [`README_EN.md`, lines 403–408](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/README_EN.md#L403-L408) |
+| Intent routing, author-memory entry points, query fallback, and project-state awareness | [`skills/story/SKILL.md`, lines 10–45](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story/SKILL.md#L10-L45) and [`77–123`](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story/SKILL.md#L77-L123) |
+| Long-writing principles, scenarios, bare-call stops, and scope limits | [`story-long-write/SKILL.md`, lines 17–70](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-long-write/SKILL.md#L17-L70) |
+| Long-form project structure, state/context contract, and chapter workflow routing | [`story-long-write/SKILL.md`, lines 104–231](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-long-write/SKILL.md#L104-L231) |
+| Craft-reference precedence and quality-check routing | [`story-long-write/SKILL.md`, lines 237–325](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-long-write/SKILL.md#L237-L325) |
+| Serial daily writing, bounded context load, retrieval ladder, and batch checks | [`workflow-daily.md`, lines 23–149](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-long-write/references/workflow-daily.md#L23-L149) |
+| Per-chapter drafting, narrative-agent handoff, word-count authority, and quality checks | [`workflow-chapter.md`, lines 9–140](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-long-write/references/workflow-chapter.md#L9-L140) |
+| Static/dynamic state selection, snapshot format, and update rules | [`state-tracking.md`, lines 7–28](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-long-write/references/state-tracking.md#L7-L28) and [`66–108`](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-long-write/references/state-tracking.md#L66-L108) |
+| Tracking authority, derived views, state-last commit, serial-only commits, and retry | [`tracking-transaction.md`, lines 7–36](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-long-write/references/tracking-transaction.md#L7-L36) |
+| Transaction fields, expected revision, retirements, and revision-current-value contract | [`tracking-transaction.md`, lines 72–147](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-long-write/references/tracking-transaction.md#L72-L147) |
+| Actual state/transaction schema normalization and exact revision check | [`tracking_commit.py`, lines 742–852](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-long-write/scripts/tracking_commit.py#L742-L852) |
+| Actual merge and deterministic rendering behavior | [`tracking_commit.py`, lines 887–1021](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-long-write/scripts/tracking_commit.py#L887-L1021) |
+| Actual write order and derived-view check | [`tracking_commit.py`, lines 1039–1095](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-long-write/scripts/tracking_commit.py#L1039-L1095) |
+| Tracking initialization, partial-write recovery, stale rejection, old-revision behavior, and import overlay tests | [`test-tracking-commit.py`, lines 188–348](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/scripts/test-tracking-commit.py#L188-L348) |
+| Retirement and revision constraints in tests | [`test-tracking-commit.py`, lines 405–505](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/scripts/test-tracking-commit.py#L405-L505) |
+| Concrete schema-v4 demonstration state | [`demo/.../_tracking-state.json`, lines 1–476](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/demo/%E9%95%BF%E7%AF%87/%E8%AE%A9%E4%BD%A0%E7%AE%A1%E8%B4%A6%E5%8F%B7%EF%BC%8C%E4%BD%A0%E9%AB%98%E7%87%83%E6%B7%B7%E5%89%AA%E7%82%B8%E5%85%A8%E7%BD%91/%E8%BF%BD%E8%B8%AA/_tracking-state.json#L1-L476) |
+| Earlier-chapter workflow, current-value recalculation instructions, stale retry, and human downstream choice | [`workflow-revision.md`, lines 25–36](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-long-write/references/workflow-revision.md#L25-L36) and [`56–99`](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-long-write/references/workflow-revision.md#L56-L99) |
+| Author-memory authority, precedence, prompt/query boundary, and lifecycle | [`author-memory.md`, lines 1–103](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story/references/author-memory.md#L1-L103) |
+| Author-memory budgets, schema, revision/idempotency, conflict operations, rendering, and query enforcement | [`author_memory_commit.py`, lines 29–42](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story/scripts/author_memory_commit.py#L29-L42), [`240–300`](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story/scripts/author_memory_commit.py#L240-L300), [`341–580`](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story/scripts/author_memory_commit.py#L341-L580), and [`599–826`](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story/scripts/author_memory_commit.py#L599-L826) |
+| Author-memory empty query, conflict/replace/forget, stale rejection, rollback, and 2 KiB query tests | [`test-author-memory-commit.py`, lines 102–118](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/scripts/test-author-memory-commit.py#L102-L118), [`185–310`](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/scripts/test-author-memory-commit.py#L185-L310), and [`327–406`](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/scripts/test-author-memory-commit.py#L327-L406) |
+| Long-form analysis stages, dependencies, stop gate, parallelism, and recovery | [`story-long-analyze/SKILL.md`, lines 108–198](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-long-analyze/SKILL.md#L108-L198) and [`206–301`](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-long-analyze/SKILL.md#L206-L301) |
+| Import confirmations, old-tracking migration, tracking initialization, and project activation | [`story-import/SKILL.md`, lines 38–124](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-import/SKILL.md#L38-L124), [`381–444`](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-import/SKILL.md#L381-L444), and [`487–563`](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-import/SKILL.md#L487-L563) |
+| Review modes/fallback metadata, review-state persistence, findings, disagreement, solo behavior, and tracking limits | [`story-review/SKILL.md`, lines 23–149](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-review/SKILL.md#L23-L149) and [`195–475`](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-review/SKILL.md#L195-L475) |
+| Setup detection, safe deployment, agent/hook installation, platform fallbacks, marker, validation, merge strategy, and upgrades | [`story-setup/SKILL.md`, lines 15–188](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-setup/SKILL.md#L15-L188), [`273–380`](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-setup/SKILL.md#L273-L380), and [`439–479`](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-setup/SKILL.md#L439-L479) |
+| Shared hook continuity checks, write-target parsing, outline/tracking guard, and post-write findings | [`story_hook_core.js`, lines 108–204](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-setup/references/templates/hooks/story_hook_core.js#L108-L204), [`204–704`](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-setup/references/templates/hooks/story_hook_core.js#L204-L704), and [`745–973`](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-setup/references/templates/hooks/story_hook_core.js#L745-L973) |
+| Codex stop-event rescan and tracking/continuity checks | [`story_codex_hook.py`, lines 382–416](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-setup/references/codex/hooks/story_codex_hook.py#L382-L416) and [`473–566`](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-setup/references/codex/hooks/story_codex_hook.py#L473-L566) |
+| Shared-source/copy relationships for detectors, tracking, memory, and hooks | [`shared-assets.json`, lines 1–91](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/scripts/shared-assets.json#L1-L91) |
+| Hot-path context budgets and explicit budget-change policy | [`scripts/doc-budget.json`, lines 1–88](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/scripts/doc-budget.json#L1-L88) |
+| Cross-platform state, memory, continuity, detector, and adapter tests | [`.github/workflows/cross-platform.yml`, lines 1–232](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/.github/workflows/cross-platform.yml#L1-L232) |
+| Current-CLI installation/discovery tests | [`.github/workflows/cli-compat.yml`, lines 19–98](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/.github/workflows/cli-compat.yml#L19-L98) |
+| Dashboard OS/API and Playwright test matrix | [`.github/workflows/dashboard.yml`, lines 39–69](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/.github/workflows/dashboard.yml#L39-L69) |
+| Version 0.7.6 behavior, regression fixes, upgrade requirement, and context reductions | [`CHANGELOG.md`, lines 5–64](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/CHANGELOG.md#L5-L64) |
+| Exact license text | [`LICENSE`, lines 1–21](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/LICENSE#L1-L21) |
+
 ### Observed: primary evidence index
 
 All links in this table are pinned to the analyzed commit unless they point to repository metadata.
@@ -733,7 +784,7 @@ All links in this table are pinned to the analyzed commit unless they point to r
 | Area | Evidence | What it establishes |
 |---|---|---|
 | Overview | [`README_EN.md`](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/README_EN.md) | Product scope, workflow pillars, project layout, runtime claims, tracking/context overview, local dashboard claims |
-| License | [`LICENSE`](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/LICENSE) | MIT license text |
+| License | [`LICENSE`, lines 1–21](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/LICENSE#L1-L21) | Exact MIT license text at the analyzed commit |
 | Release history | [`CHANGELOG.md`](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/CHANGELOG.md) | Recent regressions, upgrade behavior, agent bundle version, context reductions, detector and hook limitations |
 | Top-level routing | [`skills/story/SKILL.md`](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story/SKILL.md) | Intent routes, global workflow, author-memory integration |
 | Long writing | [`skills/story-long-write/SKILL.md`](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-long-write/SKILL.md) | Scenario routing, stop rules, project artifacts, context limits, state authority, chapter scope |
@@ -761,7 +812,7 @@ All links in this table are pinned to the analyzed commit unless they point to r
 
 ### Observed: licensing/provenance paths checked
 
-- [`LICENSE`](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/LICENSE) — present, MIT.
+- [`LICENSE`, lines 1–21](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/LICENSE#L1-L21) — present, MIT.
 - `NOTICE` — not found at the pinned commit.
 - `ATTRIBUTION.md` — not found at the pinned commit.
 - README acknowledgments — present in [`README_EN.md`](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/README_EN.md).
@@ -848,7 +899,9 @@ These can remain optional even if the underlying responsibilities are retained.
 
 ## 16. Three-Source Comparative Baseline
 
-### Observed
+### Observed source evidence and provisional comparative inference
+
+In the table below, the three source columns summarize observed repository evidence; Zenstory's behavior claims map to the exact pinned line ranges in Section 14. The final column and comparative superlatives such as “strongest” are **Inference**, not source-reported facts.
 
 | Dimension | Lensetek | Dewhurst | Zenstory | Provisional Phase 1 reading |
 |---|---|---|---|---|
@@ -857,7 +910,7 @@ These can remain optional even if the underlying responsibilities are retained.
 | Orchestration | Responsibility-oriented skill routing | CLI and skill workflows over shared files | Scenario router, staged pipelines, agents, hooks, transactions, and fallbacks | Zenstory offers the strongest orchestration evidence so far |
 | Project representation | Mostly human-readable skill artifacts | Distributed Markdown/YAML source artifacts | Hybrid: prose/settings/outlines plus JSON tracking authority and derived Markdown | Final representation remains open |
 | Dynamic state authority | Not strongly centralized | Distributed registries/current-state files with authority ambiguity | One per-book JSON authority inside tracking; separate authority domains elsewhere | Zenstory narrows ambiguity without creating one universal canon |
-| State history | Limited evidence | Durable entity/scene records and current state; revision is workflow-driven | Current snapshot plus bounded chapter records; revision is workflow-guided recalculation | Neither Dewhurst nor Zenstory provides deterministic downstream replay |
+| State history | Limited evidence | Durable entity/scene records and current state; revision is workflow-driven | Current snapshot plus bounded chapter records; the workflow assigns cross-chapter recalculation to the executing agent | **Inference:** neither Dewhurst nor Zenstory provides deterministic downstream replay |
 | Stale-write protection | Not central | No comparable revision guard found | Expected state revision rejects stale sequential transactions | Strong provisional Zenstory candidate |
 | Concurrency | Not central | Not materially specified | Explicitly unsupported for state writers | Still an open CodexWriter requirement |
 | Human inspectability | High | High; Markdown/YAML is directly editable | High for derived views and project files, but canonical dynamic state is JSON and derived views are not editable | Inspectability and single authority must be balanced |
@@ -870,7 +923,7 @@ These can remain optional even if the underlying responsibilities are retained.
 | Reader simulation | Explicit reader-facing role | No equally prominent simulator | No dedicated simulator; platform rubrics and review approximate it | Lensetek responsibility remains unresolved, not displaced |
 | Deterministic validation | Limited implementation evidence | Actual CLI validation, links, continuity checks, migration, and tests | State transactions/checks, hooks, prose detectors, setup validation, and extensive cross-platform tests | Dewhurst and Zenstory both show useful but different deterministic layers |
 | Semantic continuity | Agent responsibility | Mixed CLI data checks and workflow judgment | Read-only consistency agent plus model review; JSON check is structural only | None proves semantic truth deterministically |
-| Revision propagation | Workflow responsibility | Updates affected structured artifacts; no replay engine found | Agent recalculates through latest chapter; script merges supplied current values | Automatic propagation remains unsolved |
+| Revision propagation | Workflow responsibility | Updates affected structured artifacts; no replay engine found | **Observed:** the workflow instructs the agent to recalculate through the latest chapter and the script merges submitted values | **Inference:** automatic deterministic propagation remains unsolved |
 | Audit vs. repair | Specialist separation in taxonomy | Revision/continuity combines some concerns | Review is read-oriented; prose cleanup and state transaction are separate | Zenstory gives the clearest enforced separation |
 | Creative craft | Broad fiction guidance | Comparatively light prose layer | Deep Chinese web-fiction market, emotion, rhythm, outline, and prose methodology | Zenstory is strongest but most domain-specific |
 | Author preference memory | Not central in baseline | Not a distinct transactional subsystem | Separate workspace authority, lifecycle, budget, and precedence | Strong provisional responsibility candidate |
@@ -899,13 +952,13 @@ A plausible hybrid is visible, but it is still only a provisional candidate: hum
 
 ## 17. Answers to Questions Carried From Dewhurst
 
-### Observed answers
+### Observed evidence and inference boundaries
 
 | Carried question | Zenstory evidence-based answer |
 |---|---|
 | Does one authoritative state solve Dewhurst's ambiguity? | It solves authority ambiguity for dynamic tracking and its derived views. It does not centralize the entire manuscript, settings, outline, benchmark corpus, or author memory into one authority. |
-| How are history and earlier-chapter revisions handled? | Current state is authoritative, bounded chapter records preserve limited deltas, and an agent recalculates affected current values from the revised chapter through the latest chapter. The tool validates and commits; it does not replay. |
-| Are stale updates protected? | Yes for serial state transactions through exact `expected_state_revision` matching. No general multi-writer lock exists. |
+| How are history and earlier-chapter revisions handled? | **Observed:** current state is authoritative, bounded chapter records preserve compact continuity changes, and the workflow instructs the agent to recalculate affected current values from the revised chapter through the latest chapter ([workflow lines 56–66](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-long-write/references/workflow-revision.md#L56-L66)). **Inference:** because the transaction implementation consumes those submitted values and has no manuscript-replay path, this is agent-guided recalculation rather than deterministic replay. |
+| Are stale updates protected? | **Observed:** yes for serial state transactions through exact `expected_state_revision` matching; the upstream contract explicitly says this rejects sequential stale transactions and is not a concurrency lock ([contract lines 26–32](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-long-write/references/tracking-transaction.md#L26-L32), [implementation lines 843–852](https://github.com/zenstory-ai/oh-story-claudecode/blob/d1f88587c0b88abdb0a62b101b850300e0617d7b/skills/story-long-write/scripts/tracking_commit.py#L843-L852)). |
 | Is Dewhurst more human-inspectable? | Dewhurst's canonical Markdown/YAML is more directly editable. Zenstory keeps inspectable Markdown projections but forbids editing them and requires JSON transactions for dynamic state. |
 | Which has the stronger long-context strategy? | Zenstory has stronger explicit budgets, projections, fixed near-field limits, far-field escalation, and a read-only query role. |
 | What belongs in tooling versus skills? | Zenstory puts schema, revision, rendering, byte caps, and file integrity in tools; semantic extraction, relevance selection, continuity judgment, and prose quality remain agent/skill responsibilities. |
