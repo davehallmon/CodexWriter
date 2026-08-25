@@ -157,8 +157,8 @@ Summarize decisions only after the evidence sections are complete. Use terms suc
 | Order | Source | Status |
 |---:|---|---|
 | 1 | lensetek/Fiction-book-agent-skills | Merged baseline complete |
-| 2 | danjdewhurst/story-skills | Draft ready for review |
-| 3 | zenstory-ai/oh-story-claudecode | Not started |
+| 2 | danjdewhurst/story-skills | Merged analysis complete |
+| 3 | zenstory-ai/oh-story-claudecode | Draft ready for review |
 | 4 | haowjy/creative-writing-skills | Not started |
 | 5 | JeroTan/novel-writer-english | Not started |
 | 6 | wgwtest/novel-writing | Not started |
@@ -166,4 +166,4 @@ Summarize decisions only after the evidence sections are complete. Use terms suc
 
 ## Next Step
 
-Review `danjdewhurst-story-skills.md`. After it is approved and merged, create the Zenstory source-analysis branch from the updated `development` branch unless the Dewhurst findings justify changing the initial recommended order.
+Review `zenstory-ai.md`. After it is approved and merged, decide whether the first three sources provide enough evidence for a provisional state-architecture synthesis or whether to continue the provisional source order with Haowjy before synthesis. No architecture or crosswalk decision is made in this status update.
