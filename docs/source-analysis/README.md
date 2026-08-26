@@ -159,11 +159,11 @@ Summarize decisions only after the evidence sections are complete. Use terms suc
 | 1 | lensetek/Fiction-book-agent-skills | Merged baseline complete |
 | 2 | danjdewhurst/story-skills | Merged analysis complete |
 | 3 | zenstory-ai/oh-story-claudecode | Merged analysis complete |
-| 4 | haowjy/creative-writing-skills | Draft ready for review |
-| 5 | JeroTan/novel-writer-english | Not started |
+| 4 | haowjy/creative-writing-skills | Merged analysis complete |
+| 5 | JeroTan/novel-writer-english | Draft ready for review |
 | 6 | wgwtest/novel-writing | Not started |
 | 7 | rhavekost/author-toolkit | Not started |
 
 ## Next Step
 
-Review `haowjy-creative-writing-skills.md`. After it is approved and merged, continue the provisional source order with JeroTan unless review explicitly authorizes a separate synthesis step. No architecture or crosswalk decision is made in this status update.
+Review `jero-tan-novel-writer-english.md`. After it is approved and merged, continue the provisional source order with wgwtest unless review explicitly authorizes a separate synthesis step. No architecture or crosswalk decision is made in this status update.
