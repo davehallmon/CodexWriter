@@ -94,11 +94,11 @@ The following environment-specific session logs and operational details are curr
 
 | File | Size | Contents | Sensitivity Assessment |
 |---|---|---|---|
-| `docs/source-analysis/codexwriter_log_chatgpt_1044pm_full.md` | 11.8 KB | ChatGPT session transcript — CodexWriter development discussion, includes tool names, API auth discussion, Gemini notebook content summaries | Contains operational details and session-specific context. Not clearly reusable framework material. |
-| `docs/source-analysis/codexwriter_log_chatgpt_1044pm_summary.md` | 25.1 KB | ChatGPT session summary — same session, condensed | Same concerns as the full transcript. |
-| `docs/source-analysis/codexwriter_log_deepseek_0409pm_summary.md` | 23.1 KB | DeepSeek session summary — CodexWriter development discussion | Same concerns. |
+
 
 **No redaction, movement, or deletion was performed in this commit.** These files remain in place. The inventory is presented for approval before any action is taken.
+
+**Post-cleanup note:** As of the documentation-hygiene commit, all three files were removed from the public `development` tree. Private copies are preserved outside the Git repository at `/home/davehallmon/.codexwriter-private/logs/`. The inventory above records what was found and why removal was recommended.
 
 ### Recommendations for approval
 

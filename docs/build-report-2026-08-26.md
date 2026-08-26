@@ -171,10 +171,7 @@ The Google Drive API couldn't access the _LOG folder earlier because `google-api
 | `2026-08-25_10_44pm_ChatGPT_Dev_CodexWrite_Repo_SUMMARY.md` | Summary | 39,642 bytes | Aug 26 03:46 |
 | `2026-08-25_10_44pm_DeepSeek_Dev_CodexWrite_Repo.md` | Full | 80,437 bytes | Aug 26 03:45 |
 
-**3 downloaded to local CodexWriter tree:**
-- `docs/source-analysis/codexwriter_log_chatgpt_1044pm_summary.md` (25,140 bytes)
-- `docs/source-analysis/codexwriter_log_chatgpt_1044pm_full.md` (11,827 bytes)
-- `docs/source-analysis/codexwriter_log_deepseek_0409pm_summary.md` (23,063 bytes)
+**3 downloaded to local CodexWriter tree:** None — the three Drive _LOG transcripts were removed from the public tree during documentation hygiene cleanup. Private copies are preserved outside the Git repository at `/home/davehallmon/.codexwriter-private/logs/`.
 
 **Key observations from the _LOG:**
 
@@ -471,14 +468,9 @@ The CodexWriter repo has no LICENSE file. For Dust & Ash, this doesn't matter (p
 | `templates/scene-template.md` | 1,156 |
 | `templates/SKILL_TEMPLATE.md` | 1,534 (pre-existing) |
 
-**Drive _LOG downloads (3 files):**
-| File | Chars |
-|---|---|
-| `docs/source-analysis/codexwriter_log_chatgpt_1044pm_summary.md` | 25,140 |
-| `docs/source-analysis/codexwriter_log_chatgpt_1044pm_full.md` | 11,827 |
-| `docs/source-analysis/codexwriter_log_deepseek_0409pm_summary.md` | 23,063 |
 
-**Total new content today: ~948 KB** (the entire CodexWriter repo is now ~948 KB vs ~462 KB before)
+
+**Total new content today:** ~723 KB (the entire CodexWriter repo is now ~723 KB vs ~462 KB before the log removal)
 
 ### External Changes
 
