@@ -607,11 +607,9 @@ All dispositions below are **Phase 1 candidates, not final decisions**.
 
 These were noted during the analysis but not directly verified because the relevant files were not individually read in this pass. They are flagged for a follow-up inspection pass before CodexWriter relies on them.
 
-1. **`skills/prose-mechanics/references/*.md` full content.** 17 reference files were listed in the tree inventory but not all were individually read in depth. The audit detection patterns, judgment protocols, and exemplar references should be read before CodexWriter adopts specific audit types.
+1. **`skills/prose-mechanics/references/*.md` and exemplar files.** 18 reference files and 12 exemplar files are tracked in the pinned tree. The 6 reference files and 1 asset (audit-tracker-template.md) that were directly read are documented in their respective SKILL.md or reference sections; the remaining 12 reference files and 12 exemplar files were not individually opened. The audit detection patterns, judgment protocols, and exemplar content for the unopened files should be read before CodexWriter adopts specific audit types.
 
-2. **`skills/story-structure/references/landmark-beats.md`, `signposts.md`, `structure-map.md`, `structure-audit.md`.** These define the actual Weiland/Bell implementation. The SKILL.md describes them; the reference files contain the details.
-
-3. **`skills/narrative-nonfiction/references/*.md` full content.** 7 reference files plus the skill itself were not all read in depth. The transformation-arc, metaphor-consistency, reveal-engineering, and voice-editing patterns should be inspected before CodexWriter relies on them.
+2. **`skills/narrative-nonfiction/references/*.md` and asset files.** 8 reference files and 2 asset files are tracked in the pinned tree. 2 reference files were directly read (`reveal-engineering.md` and `transformation-arc.md`); the remaining 6 reference files and 2 asset files were not individually opened. The metaphor-consistency, empirical-reveal, structural-reveal, conceptual-reveal, voice-editing, and exercise-design patterns should be inspected before CodexWriter relies on them.
 
 4. **`skills/avoid-ai-writing/SKILL.md` full detection rules.** The skill is 492 lines and was read in part. The specific AI-ism detection patterns (em-dash substitution, bold overuse, hollow intensifiers, hedging, etc.) should be reviewed before CodexWriter adopts or adapts them.
 
