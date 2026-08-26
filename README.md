@@ -12,7 +12,7 @@ CodexWriter is an AI-assisted fiction authoring framework. It is the result of a
 - [`JeroTan/novel-writer-english`](https://github.com/JeroTan/novel-writer-english) — constitution, pre-write context reload, document sharding
 - [`wgwtest/novel-writing`](https://github.com/wgwtest/novel-writing) — narrative epistemology, POV boundaries, context LOD
 - [`rhavekost/author-toolkit`](https://github.com/rhavekost/author-toolkit) — context-blind reader testing, separate editorial passes
-- [`zenstory-ai`](https://github.com/zenstory-ai) — additional inspiration; to be analyzed and incorporated
+- [`zenstory-ai/oh-story-claudecode`](https://github.com/zenstory-ai/oh-story-claudecode) — layered state management, multi-agent review, author memory, and runtime portability
 
 Rather than simply translating or copying any single repository, CodexWriter aims to synthesize the best architectural ideas from each into a new, more robust system.
 
@@ -74,7 +74,7 @@ codexwriter/
 We are in **Phase 1: Architecture & Source Preservation**.  
 No skills have been copied verbatim. We are:
 
-1. Documenting the six source repositories in detail.
+1. Documenting the seven source repositories in detail, including `zenstory-ai/oh-story-claudecode`.
 2. Building a cross‑walk table to decide what to keep, replace, or improve.
 3. Resolving licensing status (Lensetek’s MIT license file is currently missing).
 4. Drafting original skill specifications that incorporate the best ideas.
@@ -84,7 +84,7 @@ Until licensing is clarified, this repository will remain **private** and will n
 ## Next steps
 
 - Set up the initial `development` branch and file structure.
-- Populate `docs/source-analysis` with notes from the six repositories.
+- Populate `docs/source-analysis` with notes from the seven repositories.
 - Define the target architecture and cross‑walk.
 - Begin drafting the first original skills (orchestrator, story‑state manager, continuity checker).
 
