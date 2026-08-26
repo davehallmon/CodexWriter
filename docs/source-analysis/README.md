@@ -160,10 +160,10 @@ Summarize decisions only after the evidence sections are complete. Use terms suc
 | 2 | danjdewhurst/story-skills | Merged analysis complete |
 | 3 | zenstory-ai/oh-story-claudecode | Merged analysis complete |
 | 4 | haowjy/creative-writing-skills | Merged analysis complete |
-| 5 | JeroTan/novel-writer-english | Analysis complete; ready to merge |
-| 6 | wgwtest/novel-writing | Not started |
+| 5 | JeroTan/novel-writer-english | Merged analysis complete |
+| 6 | wgwtest/novel-writing | Analysis complete; ready for review |
 | 7 | rhavekost/author-toolkit | Not started |
 
 ## Next Step
 
-Merge `jero-tan-novel-writer-english.md`, then continue the provisional source order with wgwtest unless review explicitly authorizes a separate synthesis step. No architecture or crosswalk decision is made in this status update.
+Review `wgwtest-novel-writing.md`. After it is approved and merged, continue the provisional source order with Rhavekost unless review explicitly authorizes a separate synthesis step. No architecture or crosswalk decision is made in this status update.
