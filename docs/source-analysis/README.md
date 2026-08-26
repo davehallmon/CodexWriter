@@ -158,12 +158,12 @@ Summarize decisions only after the evidence sections are complete. Use terms suc
 |---:|---|---|
 | 1 | lensetek/Fiction-book-agent-skills | Merged baseline complete |
 | 2 | danjdewhurst/story-skills | Merged analysis complete |
-| 3 | zenstory-ai/oh-story-claudecode | Draft ready for review |
-| 4 | haowjy/creative-writing-skills | Not started |
+| 3 | zenstory-ai/oh-story-claudecode | Merged analysis complete |
+| 4 | haowjy/creative-writing-skills | Draft ready for review |
 | 5 | JeroTan/novel-writer-english | Not started |
 | 6 | wgwtest/novel-writing | Not started |
 | 7 | rhavekost/author-toolkit | Not started |
 
 ## Next Step
 
-Review `zenstory-ai.md`. After it is approved and merged, decide whether the first three sources provide enough evidence for a provisional state-architecture synthesis or whether to continue the provisional source order with Haowjy before synthesis. No architecture or crosswalk decision is made in this status update.
+Review `haowjy-creative-writing-skills.md`. After it is approved and merged, continue the provisional source order with JeroTan unless review explicitly authorizes a separate synthesis step. No architecture or crosswalk decision is made in this status update.
