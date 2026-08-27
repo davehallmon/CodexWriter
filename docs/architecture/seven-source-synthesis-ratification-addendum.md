@@ -27,19 +27,29 @@ This addendum consolidates the twelve open decisions (D1–D12) into three ratif
 |---|---|---|---|---|---|
 | Narrative prose (paragraphs, scenes, chapters) | Markdown files the author writes or approves | Author; authoring skill as draft until approval | Draft → author approval → canon | Canon wins; draft is discarded or revised | Reader, prose editor, reader-sim (when in overlay) |
 | Editorial state (changes approved by author) | Markdown + recorded author decision | Prose editor proposes; author approves per change | Diagnose → batch of exact changes → author accept/reject/modify individually → apply only approved changes | Approved final wording wins over drafting draft | Continuity, reader-sim, export |
-| Approved canon story facts (what happened, order, relationships, world rules) | Structured state (or an explicit Markdown canonical with provenance), after promotion | Author approves promotion; structured transaction applies validated state | Prose/proposed fact → author approval + transaction validation → canon state field | Conflict blocks promotion until reconciliation recorded | Continuity, reader-sim, scene-planner, architect |
+|| Approved canon story facts (what happened, order, relationships, world rules) | Approved structured state, after promotion | Author approves promotion; structured transaction applies validated state | Prose/proposed fact → author approval + transaction validation → canon state field | Conflict blocks promotion until reconciliation recorded | Continuity, reader-sim, scene-planner, architect |
 | Workflow status (phase, phase_gate, outline/draft status, revisions, TODO type) | Structured state via schema-validated transaction | Orchestrator or authorized skill via atomic write | Business rule passes schema and coherence check → transaction applied | Structured state wins for status; any prose that contradicts blocked workflow is flagged | Orchestrator, continuity, export gating |
 | Author memory and preferences (style, voice, habits) | Separate author-profile store, not story canon | Author or profile builder | Author sets or updates; profile is read by relevant skills | Author preference never overrides story canon; does not enter story truth | Relevant skills, context assembly |
 | Non-canonical working material (brainstorms, drafts, rejected takes) | Sandbox/workspace, outside canon | Author or assistant inside sandbox | Only concrete, approved material may be promoted | Stays non-canon until explicitly promoted | None, until promoted |
 | Indexes, registries, check reports, derived summaries | Rebuildable derived views produced from canonical project files | Automation | Rebuild on change or explicit rebuild command | Can be discarded or regenerated with no loss of unique facts | Review, continuity, context assembly |
 
-### Tested rules against concrete examples
+#### Tested rules against concrete examples
 
-- **A manuscript says Avram is afraid of the divine encounter; the JSON character state currently records him as confident about it.** Conflict. Not silent overwrite. Block until the author resolves: either prose is wrong, state is wrong, or the state is stale and needs correction through the same promotion path. After resolution, the resolved side wins and the other side is flagged or revised.
-- **Orchestrator increments `state_revision` and sets `phase_gate = approved`, but no author approval record exists.** Transaction validation fails. The status change is not applied. The author must approve or record the approval before the workflow field becomes canon.
-- **A reader-sim prompt loads a derived summary of character knowledge from a persistently rebuilt index rather than requiring the author to paste the prose.** Permitted, because the summary has no unique facts. If the summary conflicts with the actual prose, the prose wins; the summary is rebuilt or corrected before next use.
-- **Brainstorm commentary and a rejected alternate take live in a workspace.** Non-canon. They must not be promoted by accident. A promotion operation starts a gate for the specific material.
-- **An earlier chapter is revised; later continuity facts depend on it.** Earlier-chapter revision triggers a recalculation of affected state; the affected facts do not silently persist. The updated transaction includes the recalculated current values; downstream checks see the current state, not the outdated inference.
+The tested rules below are intended to produce a single, consistent model. To make that model explicit, the addendum establishes three distinct authorities for approved project material:
+
+* **Approved Markdown manuscript files are authoritative for exact narrative wording and for what the reader encounters.** No structured state field may silently rewrite a paragraph, sentence, dialogue line, or chapter that the author wrote or approved.
+* **Approved structured state is authoritative for machine-checkable intended canon facts and for workflow fields that the schema explicitly governs.** These include state revisions, phase, phase_gate, character status, chapter sequence, scene outline/draft status, schema-validity fields, and IDs the system uses to route and cross-reference work. A machine-checkable fact may originate in prose, but it becomes intended project canon only after author approval and a validated promotion transaction.
+* **Derived views, summaries, indexes, registries, reports, and context packages are never authoritative and contain no unique facts.** They are rebuildable projections from canonical project files. A derived artifact may be discarded or regenerated without loss of unique facts.
+
+The structured canon record must retain provenance pointing to the source passage, decision, or approval that established each promoted fact. Approval alone is not enough; the transaction must capture why the fact is now intended canon and where it came from.
+
+The four concrete conflict cases below test that model:
+
+* **A manuscript says Avram is afraid of the divine encounter; the JSON character state currently records him as confident about it.** Conflict. Not silent overwrite. Neither prose nor state automatically wins. Block until the author resolves: either prose is wrong, state is wrong, or the state is stale and needs correction through the same promotion path. After resolution, the resolved side wins and the other side is flagged or revised.
+* **Orchestrator increments `state_revision` and sets `phase_gate = approved`, but no author approval record exists.** Transaction validation fails. The status change is not applied. The author must approve or record the approval before the workflow field becomes canon.
+* **A reader-sim prompt loads a derived summary of character knowledge from a persistently rebuilt index rather than requiring the author to paste the prose.** Permitted, because the summary has no unique facts. If the summary conflicts with the actual prose, the prose wins; the summary is rebuilt or corrected before next use.
+* **Brainstorm commentary and a rejected alternate take live in a workspace.** Non-canon. They must not be promoted by accident. A promotion operation starts a gate for the specific material.
+* **An earlier chapter is revised; later continuity facts depend on it.** Earlier-chapter revision triggers a recalculation of affected state; the affected facts do not silently persist. The updated transaction includes the recalculated current values; downstream checks see the current state, not the outdated inference.
 
 ---
 
@@ -80,7 +90,9 @@ Ratify now at a **minimum-responsibility** level, but defer the detailed LOD sch
 ### What “schema-aware portability” means operationally
 
 A host is schema-aware if it can:
-- validate Markdown against the project templates/templates and JSON against the schemas;
+- validate JSON against the schemas using schema validation;
+- apply defined structural, frontmatter, or contract checks to Markdown where such rules exist;
+- use judgment-based review for narrative content that cannot be mechanically validated;
 - respect the authority and conflict rules from Block A;
 - route by structure and IDs, not only by free text;
 - run or reject operations whose required state is missing or invalid;
@@ -138,36 +150,15 @@ Framework approvals (state model, schema set, skill contracts, release decisions
 - **Apply only the approved changes.**
 - Approval of a general editing goal is not permission for unrestricted rewriting. Each change still needs its own disposition unless the author explicitly authorizes a broader move with a clear boundary.
 
-### Two HITL modes: objective selection criteria
+#### Two HITL modes: objective selection criteria
 
-#### Interactive approval required when
+The system operates in one of two modes. It must declare the mode before work begins, and it must not switch modes silently during a workflow.
 
-- the operation can change canon narrative content;
-- the operation can change workflow status that gates other work;
-- the operation can promote content into canon;
-- the operation deletes or overwrites approved author material;
-- the operation is the first promotion of a brainstorm/draft into canon;
-- the operation is an earlier-chapter revision that may affect later state;
-- the operation is a new project initialization that creates durable state;
-- the author has not previously authorized an equivalent envelope for this kind of change.
+**Interactive mode.** The author reviews and approves a proposed batch before it is applied to the working canonical artifact or state. Use interactive mode when the operation touches canon, gates, promotion, deletion, destructive external actions, direct canonical-state writes, or any envelope the author has reserved.
 
-#### PR-boundary review sufficient when
+**PR-boundary mode.** The agent may generate prose edits, state patches, continuity updates, and other proposed changes on an isolated non-canonical branch. The author reviews the exact batch or diff before merge. Merging constitutes application to the canonical branch; an unmerged proposal is not canon. PR-boundary mode is appropriate when the change is within an approved scope, localized as a bounded diff, reviewable on a usable surface, and none of the interactive-mode triggers apply.
 
-- the change is within already-approved story scope;
-- the change is localized and reviewable as a bounded diff;
-- the change does not cross a canon-promotion or canon-deletion boundary;
-- the author has a usable review surface for the specific artifact;
-- the change does not touch workflow gates, initialization, or canon promotion.
-
-#### Operations that can never be deferred to the PR boundary
-
-- creating or initializing a project’s durable state;
-- promoting non-canon material into canon;
-- deleting approved canon;
-- overwriting an approved state field with an unapproved value;
-- changing workflow status used for gating without an approval record;
-- earlier-chapter canon revisions that require downstream recalculation;
-- any operation where the author has asked for interactive approval for this specific decision.
+Both modes preserve the batch-approval rule from the substantive editing model above. They differ in when and where the author reviews, not in whether substantive changes require approval. Substantive changes require approval under both modes; only the review surface and timing differ.
 
 #### How the selected mode is declared and recorded
 
