@@ -230,17 +230,14 @@ Exercise the layered hybrid model with one small generic project before Dust & A
 
 ### Scope
 
-1. **Project initialization** — create a minimal book, project_id, book_id, title, initial phase, initial state_revision, and a declared empty state appropriate to the start.
-2. **Markdown creative content** — author drafts a very short scene in prose using the story-bible and scene outline templates.
-3. **Promotion of one approved fact into structured state** — take one concrete fact from prose/approval and promote it into the appropriate state field through a transaction.
-4. **A valid transaction** — apply a structured state update that passes schema and coherence checks and records the audit entry.
-5. **A rejected stale-revision transaction** — submit a stale write against the wrong expected revision and demonstrate that it is rejected.
-6. **Registry rebuilding** — derive at least one registry/summary from the canonical files and confirm it is reproducible.
-7. **Context assembly** — assemble a minimal context package for the scene, including what is prose, what is state, and what is derived.
-8. **Context-blind reader simulation** — run one blind pass on the scene manuscript only and produce a reader report.
-9. **Batch-approved editorial repair** — diagnose a small set of issues, present exact proposed changes, have the author accept/reject/modify one or more, and apply only the approved ones.
-10. **Schema and continuity validation** — validate the state and the scene against their schemas and record a continuity/state coherence result.
-11. **Execution on at least two supported hosts** — run the slice on two AI hosts and document differences and fallbacks.
+1. Markdown creative content.
+2. Promotion of one approved fact into structured state, plus a valid transaction and a rejected stale-revision transaction.
+3. Registry rebuilding.
+4. Context assembly.
+5. Context-blind reader simulation.
+6. Batch-approved editorial repair, including diagnosis, presentation of exact proposed changes, author disposition of individual changes, and application only of the approved changes.
+7. Schema and continuity validation.
+8. Execution on a second host and comparison of deterministic invariants separately from judgment-based outputs.
 
 ### Acceptance criteria
 
