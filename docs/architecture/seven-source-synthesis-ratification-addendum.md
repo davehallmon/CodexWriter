@@ -19,7 +19,9 @@ This addendum consolidates the twelve open decisions (D1–D12) into three ratif
 - **Promotion into canon requires author approval for narrative content, plus transaction validation for structured fields.** A structured update that is syntactically valid but semantically wrong must still be resolved before it is written.
 - **When Markdown and structured state disagree, the disagreement blocks publication or state promotion until an explicit reconciliation is recorded.** The reconciliation must say which artifact wins and why; the loser's subsequent reads must report the same ruling.
 - **No layer may silently overwrite another.** The only exceptions are deterministic derived artifacts that are explicitly documented as rebuildable views and zero unique facts.
-- **Stale revisions, concurrent changes, rollback, and audit history follow the layered transactional model:** a structured write wraps the old authority, the new authority, a human-readable summary, and runnable check information into one observed transaction; the canonical authority advances only via that transaction; an expected-revision guard rejects stale sequential writes; audit records identify who submitted what, what was applied, and what the check marked.
+* **Stale revisions, concurrent changes, rollback, and audit history** follow the layered transactional model. One transaction owns the transition from one canonical authority state to the next canonical authority state: it wraps the prior authority, the new authority, a human-readable summary, and runnable check information into one observed change; the canonical authority advances only via that transaction; an expected-revision guard rejects stale sequential writes; the audit record captures who submitted what, what was applied, and what the check marked.
+
+At the architecture level, one transaction is one application step that advances the canonical state or a canonical artifact in a way the schema and the approved authority model recognize. A transaction may touch several files or several state fields, but it is one atomic commitment from the system's point of view: either the whole canonical transition is applied, or none of it is. Canonical advancement occurs through the declared transaction mechanism — for now, one observed transaction plus one atomic filesystem write of the new canonical authority; on Git-based workflows, that may be expressed as one commit or one merge, but the commit/merge is the transaction boundary, not an open-ended editing session. A rollback is not necessarily a literal undo of file bytes; it is the establishment of the prior canonical revision or the application of a new compensating transaction that returns the canonical state to the prior intended revision. Partial failure is detected by the schema/validation/coherence checks that must all pass for the transaction to apply, by the expected-revision guard on the canonical authority, and by any host-level write verification; if any part cannot be committed atomically, the system applies nothing to the canonical authority and records the rejection. Related revision counters tied to one canonical transition advance together under that same transaction; counters that belong to a different transition do not move as a side effect. The addendum does not yet specify the exact serialization, locking, or host-level atomicity guarantees; it specifies that the boundary, the failure detection, the recovery rule, and the counter coordination must be defined before any implementation claims atomic multi-file or rollback behavior.
 
 ### Authority matrix
 
@@ -158,7 +160,7 @@ The system operates in one of two modes. It must declare the mode before work be
 
 **PR-boundary mode.** The agent may generate prose edits, state patches, continuity updates, and other proposed changes on an isolated non-canonical branch. The author reviews the exact batch or diff before merge. Merging constitutes application to the canonical branch; an unmerged proposal is not canon. PR-boundary mode is appropriate when the change is within an approved scope, localized as a bounded diff, reviewable on a usable surface, and none of the interactive-mode triggers apply.
 
-Both modes preserve the batch-approval rule from the substantive editing model above. They differ in when and where the author reviews, not in whether substantive changes require approval. Substantive changes require approval under both modes; only the review surface and timing differ.
+Both modes preserve the batch-approval rule from the substantive editing model above. They differ in when and where the author reviews, not in whether substantive changes require approval.
 
 #### How the selected mode is declared and recorded
 
@@ -249,7 +251,7 @@ Exercise the layered hybrid model with one small generic project before Dust & A
 - The stale transaction is rejected and the rejection reason is recorded.
 - The derived registry/summary is regenerated without loss of unique facts.
 - The context package is locally correct and provenance-labeled.
-- The blind reader report is reproducible from manuscript only.
+|- The blind reader report is reproducible in contract: the manuscript-only isolation and the reader report structure are reproducible, but the reader's exact judgments, wording, and conclusions need not be identical across runs or hosts.
 - Editorial changes are applied only after explicit per-change disposition.
 - Validation passes for the intended state and fails appropriately for a deliberately broken input.
 - Two-host results are comparable and differences are documented.
@@ -288,7 +290,16 @@ If the layered hybrid model and the three blocks above are accepted, the first c
 - the HITL mode criteria and the prohibition on silent mode switching;
 - the framework-vs-story gate separation as a standing rule.
 
-No implementation file, schema instance, or merge is authorized by this addendum alone. Ratification unlocks maintenance updates and downstream schema/skill alignment; implementation begins only after that.
+If the layered hybrid model and the three blocks above are accepted, ratification authorizes the alignment updates to `ARCHITECTURE.md` and the relevant decision/status documentation that reflect the ratified rules, not yet the schema, template, skill, validator, initializer, runtime, CI, or vertical-slice implementation changes. After ratification, the sequence is:
+
+1. Align architecture and decision documentation.
+2. Produce the file-by-file schema and skill impact plan required before any schema or skill-contract change.
+3. Reconcile that plan with the required CodexWriter-core versus Dust & Ash-profile separation.
+4. Obtain approval for the resulting schema and skill changes.
+5. Implement the staged vertical slice with fixtures, validators, tests, and CI.
+6. Run the second-host portability checkpoint.
+
+In particular, ratification does not authorize schema, template, skill, validator, initializer, runtime, CI, or vertical-slice implementation changes, and alignment of schemas and skill contracts is not treated as maintenance: it is a separate decision requiring a file-by-file impact plan before it is made. Ratification does authorize retention of the previously accepted separation of the reusable CodexWriter core from the Dust & Ash profile.
 
 ---
 
