@@ -1,6 +1,6 @@
 # CodexWriter — Architecture
 
-> This document describes the ratified high-level architecture of CodexWriter, the ratified provisional prototype that already exists in the repository, and the design detail that remains deferred or unimplemented.
+> This document describes the ratified high-level architecture of CodexWriter, **the existing provisional prototype that already exists in the repository**, and the design detail that remains deferred or unimplemented.
 >
 > **Reading rule:** This document labels each concept as one of four classes. When a concept is unbuilt, it is labeled as such; unbuilt validators, transaction tooling, context assemblers, registries, adapters, or tests are documented as design targets, not as operational capabilities.
 
@@ -40,7 +40,7 @@ The context-assembly layer has a minimum responsibility that is ratified, with d
 4. Preserve a compact, reviewable provenance note for what was assembled, from which revisions, and what was excluded.
 5. Honor the conflict rule from the authority model: if a loaded summary conflicts with the declared canonical source, the declared canonical source controls the derived artifact. If the underlying approved prose and structured canon conflict, apply the authority-model reconciliation rule rather than choosing either automatically.
 
-The context layer may include, exclude, summarize, or shard as follows:
+The context layer **may** include, exclude, summarize, or shard as follows. These are permitted strategies, not mandated contracts:
 
 - It may load full prose when language, voice, dialogue rhythm, ambiguity, or exact wording is the point.
 - It may load structured state, registries, indexes, and summaries for far-field information.
@@ -100,12 +100,12 @@ The repository already contains a provisional implementation prototype. It was b
 
 ### 2.1 What the prototype provides
 
-- A stable Phase 1 working skill list: `fiction-orchestrator`, `concept-development`, `worldbuilding`, `character-development`, `narrative-architecture`, `scene-planning`, `scene-writing`, `continuity`, `prose-editing`, `reader-simulation`.
-- A JSON state model consisting of `story-state.json`, `character-state.json`, `scene-state.json`, and `continuity-state.json` with their schemas.
-- A specialist role taxonomy derived from Lensetek.
-- A five-phase pipeline shape with phase gates.
-- Example voice-preservation guidance in scene-writing and prose-editing.
-- Story-state vocabulary including POV assignments, knows/doesn't-know lists, promise/payoff tracking, and Thread Pull design integrated into narrative architecture.
+- **A proposed JSON state model defined through four schema files** — `schemas/story-state.schema.json`, `schemas/character-state.schema.json`, `schemas/scene-state.schema.json`, and `schemas/continuity.schema.json` — plus related skill contracts. The repository does not contain project instances named `story-state.json`, `character-state.json`, `scene-state.json`, or `continuity-state.json`.
+- **A working skill set of eleven `SKILL.md` files total**: ten in the current working core (`fiction-orchestrator`, `concept-development`, `worldbuilding`, `character-development`, `narrative-architecture`, `scene-planning`, `scene-writing`, `continuity`, `prose-editing`, `reader-simulation`) plus one optional `export` extension.
+- **A specialist role taxonomy** derived from Lensetek, present in the prototype.
+- **A five-phase pipeline shape** with phase gates, present in the prototype.
+- **Example voice-preservation guidance** in scene-writing and prose-editing, present in the prototype.
+- **Story-state vocabulary present in the prototype** including POV assignments, knows/doesn't-know lists, and promise/payoff tracking. Thread Pull design is designated Dust & Ash profile material, not ratified reusable-core architecture.
 
 ### 2.2 What the prototype is not
 
@@ -117,7 +117,7 @@ The repository already contains a provisional implementation prototype. It was b
 
 The prototype is the provisional substrate on which the ratified model is to be aligned. Where the prototype already embodies a ratified pattern, that pattern may be treated as present in prototype form and described as such. Where the prototype describes behavior that contradicts the ratified model, the prototype description must be corrected to stop claiming the contradictory behavior as present. Where the ratified model requires new capabilities, those capabilities are deferred or unimplemented until built.
 
-The prototype's existing schemas are provisional until separately reviewed. The ratification does not authorize schema or skill-contract changes; it authorizes only documentation alignment on an isolated branch. The next authorized step after ratifying the addendum is the documentation-alignment update, followed by a file-by-file schema and skill impact plan, followed by a separate explicit authorization before any schema, skill, or implementation work begins.
+The prototype's existing schemas are provisional until separately reviewed. The ratification does not authorize schema or skill-contract changes; it authorizes only documentation alignment on an isolated branch. Documentation alignment is now complete on the isolated branch `architecture/ratified-alignment` and pending review. The file-by-file schema and skill impact plan is the next **prospective** deliverable, subject to explicit authorization after that review. It is not presently authorized.
 
 ## 3. Not yet implemented
 
@@ -147,7 +147,7 @@ The following design details are not yet frozen. They are correct as direction, 
 - **Exact LOD thresholds and projection sizes for context sharding.** The minimum responsibility is ratified; the exact sharding boundaries, LOD levels, and projection sizes are deferred until after the first vertical slice.
 - **Exact derived-view projection schemas.** Rebuildability is ratified; the exact shapes of each derived view are deferred until implementation.
 - **Exact porting checklist.** The host-neutral/host-adapter boundary and two-host evidence requirement are ratified; the exact checklist is deferred until after the vertical slice.
-- **Exact schemas affected by the authority model.** The authority model requires schemas to distinguish canon fields from editorial fields, but the exact field-by-field reclassification is not yet specified; it is the subject of the authorized file-by-file impact plan that comes after documentation alignment.
+- **Exact schemas affected by the authority model.** The authority model requires schemas to distinguish canon fields from editorial fields, but the exact field-by-field reclassification is not yet specified; it is the subject of the prospective file-by-file impact plan that comes after documentation alignment is accepted.
 - **Exact continuity finding schema.** A shared envelope with confidence and determinism classification is recommended, but not yet specified in detail.
 - **Exact promotion and approval paths for project initialization, state-update, and editorial skills.** The paths are ratified in principle; the exact per-skill contract is deferred until schema and skill-alignment review.
 
@@ -160,7 +160,7 @@ The following design details are not yet frozen. They are correct as direction, 
 - Keep a human author in the loop at meaningful creative and scope-transition points.
 - Separate core authoring skills from cross-cutting infrastructure and optional publishing/adaptation extensions.
 
-## 6. Source repositories under review
+## 6. Source repositories reviewed
 
 The seven source repositories that informed the ratified architecture are:
 
@@ -181,23 +181,22 @@ See `docs/architecture-audit.md` for direct evidence, licensing links, and audit
 The Phase 1 source analyses established the evidence base that led to ratification:
 
 - Lensetek supplied the initial responsibility taxonomy, not automatically the implementation model.
-- The seven source analyses had to document observed state-storage and workflow behavior before CodexWriter chose a canonical state design. That guardrail was the reason the JSON state model remained provisional until the synthesis completed.
+- The seven source analyses had to document observed state-storage and workflow behavior before CodexWriter chose a canonical state design. **That guardrail existed, was violated when the prototype declared JSON canonical prematurely (before Rhavekost was analyzed), and was restored through the seven-source synthesis and the subsequent architecture ratification.**
 - Zenstory's single-authoritative-JSON state was a candidate pattern only, not the adopted design. The ratified model is a layered hybrid, not a single-authority JSON model.
 - `continuity` remained one CodexWriter skill during Phase 1. A future split between state maintenance and validation is deferred.
 - Candidate capabilities could be documented before they became final skill names.
 
 ## 8. Control and coordination
 
-- `fiction-orchestrator` — routes work, enforces workflow boundaries, and coordinates specialist capabilities.
+- `fiction-orchestrator` — routes work, enforces workflow boundaries, and coordinates specialist capabilities. Present in the prototype as the working orchestrator skill.
 - Project setup / runtime capability detection — candidate infrastructure capability.
 - Context assembly — ratified as a minimum-responsibility cross-cutting capability, with detailed thresholds deferred.
 - Persistent-state maintenance — ratified in principle as transactional canonical-state maintenance; exact tooling is not yet implemented.
 
 ## 9. Creative pipeline
 
-The current author-facing core:
+The current prototype creative pipeline includes:
 
-- story constitution / creative contract — ratified concept; exact artifact/step boundary not yet finalized
 - `concept-development`
 - `worldbuilding`
 - `character-development`
@@ -205,14 +204,19 @@ The current author-facing core:
 - `scene-planning`
 - `scene-writing`
 
-World, character, and plot work may iterate rather than execute in a rigid one-way order; this is a ratified workflow observation, not a rigid ordering requirement.
+A story constitution or creative contract is a **source-informed candidate concept from JeroTan**, not a ratified core concept. Claration gates are a **source-informed candidate from JeroTan**, not a ratified workflow rule. Whether the constitution and clarification concepts become CodexWriter artifacts, stages, or responsibilities is an unresolved module/workflow question.
+
+**World, character, and plot work may iterate rather than execute in a rigid one-way order** is existing prototype behavior, not a ratified workflow rule. The prototype does not impose a rigid one-way order; whether iteration should be treated as an architectural principle is not yet decided.
 
 ## 10. Evaluation and revision
 
-- developmental/story review — ratified as a distinct capability or mode
+The current prototype evaluation and revision skills are:
+
 - `prose-editing`
 - `continuity` — kept as one skill during Phase 1
 - `reader-simulation`
+
+A developmental/story review distinct from `prose-editing` is a **source-informed candidate** (Haowjy, Rhavekost, JeroTan), not a ratified distinct module. Whether it becomes a separate skill or a mode inside editing is unresolved.
 
 Deliberate context isolation for reader simulation is a ratified requirement: the first pass is context-blind, manuscript only.
 
@@ -232,7 +236,7 @@ Candidate capabilities present in one or more source repositories but not curren
 
 ## 12. Current proposed skill modules
 
-The stable Phase 1 working list remains:
+The working prototype skill set consists of the eleven `SKILL.md` files in the repository:
 
 - `fiction-orchestrator`
 - `concept-development`
@@ -244,8 +248,11 @@ The stable Phase 1 working list remains:
 - `continuity`
 - `prose-editing`
 - `reader-simulation`
+- `export` (optional extension)
 
-Potential additions such as `story-review`, `context-manager`, `story-state-manager`, `story-constitution`, or `project-maintenance` remain research hypotheses until the source analyses are complete and the ratified model is aligned to them.
+The exact specialist-role taxonomy and current skill count are prototype behavior, not ratified architecture.
+
+Potential additions such as `story-review`, `context-manager`, `story-state-manager`, `story-constitution`, or `project-maintenance` remain research hypotheses. The source analyses are complete; whether any of these become CodexWriter modules depends on the schema and skill-alignment review, not on the source analyses alone.
 
 ## 13. Persistent story state — ratified hybrid model
 
@@ -257,37 +264,47 @@ The ratified state model distinguishes:
 - **Approved structured state** — authoritative for explicitly designated, approved machine-checkable intended canon and workflow fields.
 - **Derived views** — rebuildable projections with no unique facts.
 
-The existing JSON state model (`story-state.json`, `character-state.json`, `scene-state.json`, `continuity-state.json` with their schemas) is a **provisional implementation prototype** pending separately reviewed schema alignment. It is preserved but not ratified. It may prove correct, partially correct, or in need of revision; that determination requires the authorized file-by-file schema impact plan and a separate approval.
+The existing JSON state model is defined by four schema files — `schemas/story-state.schema.json`, `schemas/character-state.schema.json`, `schemas/scene-state.schema.json`, and `schemas/continuity.schema.json` — and related skill contracts. It is a **provisional implementation prototype** pending separately reviewed schema alignment. It is preserved but not ratified. It may prove correct, partially correct, or in need of revision; that determination requires the prospective file-by-file schema and skill impact plan and a separate approval.
 
 Only after the ratified model and the authorized schema review should CodexWriter finalize the exact schema set. The hybrid model is the ratified decision; the exact schemas are a deferred implementation detail until the impact plan is approved.
 
 ## 14. Context management strategy
 
-CodexWriter's context-management principles include sharding, selective loading, pre-write context reload, targeted full-text expansion when style or exact prose matters, post-write state/context updates when durable facts change, and a smallest-sufficient-context rule.
+The ratified minimum responsibilities of a context-assembly layer are:
 
-The following refinements are now ratified as minimum responsibility, with detailed thresholds deferred:
+1. Identify the task and pull the smallest set of inputs that could plausibly change the output if omitted.
+2. Separate what must be current prose from what can be structured or summarized.
+3. Keep derived overlays explicitly labeled so they never masquerade as primary content.
+4. Preserve a compact, reviewable provenance note for what was assembled, from which revisions, and what was excluded.
+5. Honor the conflict rule from the authority model: if a loaded summary conflicts with the declared canonical source, the declared canonical source controls the derived artifact. If the underlying approved prose and structured canon conflict, apply the authority-model reconciliation rule rather than choosing either automatically.
 
-- Document sharding for large projects.
-- Level-of-detail loading: full prose near the current task and structured/summary context for distant material.
-- Pre-write context reload rather than trusting conversational memory.
-- Targeted full-text expansion when style, ambiguity, dialogue rhythm, or exact prose matters.
-- Post-write state/context updates when durable facts change.
-- A smallest-sufficient-context rule: load information whose omission could cause the current task to be wrong, while excluding unrelated cold context.
+The following context strategies are **permitted** under that minimum responsibility, but are not ratified as exact contracts:
+
+- **Sharding** for large projects.
+- **Level-of-detail loading**: full prose near the current task and structured/summary context for distant material.
+- **Pre-write context reload** rather than trusting conversational memory — a permitted strategy, not a mandated procedure.
+- **Targeted full-text expansion** when style, ambiguity, dialogue rhythm, or exact prose matters.
+- **Post-write state/context updates** when durable facts change — a permitted strategy, not a mandated procedure.
+- A **smallest-sufficient-context rule**: load information whose omission could cause the current task to be wrong, while excluding unrelated cold context.
+
+Source-informed implementation guidance (from wgwtest, JeroTan, and Zenstory) suggests LOD levels, sharding boundaries, reload contracts, and conflict-precedence rules. Those remain guidance for the eventual implementation, not ratified architecture.
 
 When summaries, structured state, and manuscript prose disagree, the ratified authority model applies: neither Markdown nor structured state automatically wins across the board, derived summaries are rebuildable and non-authoritative, and conflicts block the dependent operation until reconciliation is recorded.
 
 ## 15. Human-in-the-loop strategy
 
-Lensetek's phase approval gates remain an important reference. The ratified HITL model adds:
+The ratified HITL rules are:
 
-- direction selection among meaningful creative alternatives
-- promotion of exploratory material into canon
-- transition from planning to drafting
-- transition from diagnosis/audit to applying changes
-- exception handling when a deterministic check flags something that may be intentional
-- final publication/export approval
+- **Batch approval** — diagnose first, present one coherent batch of exact proposed changes, and apply only the approved changes.
+- **Diagnosis before repair** — editorial passes produce findings; a separate pathway applies approved changes.
+- **Context-blind reader baseline** — the first reader-simulation pass uses manuscript only.
+- **Interactive versus PR-boundary review** — the system declares the mode before work begins; the modes differ in when and where approval occurs, not in whether substantive changes require approval.
+- **No silent mode switching** — if new information changes the appropriate mode, the system stops and asks for a fresh decision.
+- **Framework approvals separate from story gates** — framework track and Dust & Ash project track use different decision subjects and approval records.
 
-The ratified model also specifies that agents should not silently expand scope, and that the two HITL modes are selected by when and where approval occurs, not by whether a proposal concerns canon.
+The exact phase-gate set remains **prototype- or profile-specific**. Lensetek's phase approval gates remain an important reference, but the ratified model does not mandate a specific gate list.
+
+Existing prototype phase-gate concepts include: direction selection among meaningful creative alternatives, promotion of exploratory material into canon, transition from planning to drafting, transition from diagnosis/audit to applying changes, exception handling when a deterministic check flags something that may be intentional, and final publication/export approval. These are **prototype behavior and source-informed candidates**, not ratified universal policy.
 
 ## 16. Deterministic vs. judgment-based evaluation
 
@@ -319,18 +336,18 @@ Portability evidence also splits this way: deterministic invariants must match a
 - `development` — ongoing integration branch
 - Feature branches — bounded architecture, research, or skill work created from `development`
 
-The ratified ratification addendum lives on `architecture/seven-source-synthesis`. The ratification baseline is commit `70861e660d7d7e5261482834397f5f6a97aa43d3`. Documentation alignment now proceeds on the isolated branch `architecture/ratified-alignment`, created from that baseline. That branch is not merged until reviewed and approved.
+The ratification addendum lives on `architecture/seven-source-synthesis`. The ratification baseline is commit `70861e660d7d7e5261482834397f5f6a97aa43d3`. Documentation alignment now proceeds on the isolated branch `architecture/ratified-alignment`, created from that baseline. That branch is not merged until reviewed and approved.
 
 ## 18. Next steps
 
-The immediate next step, authorized by ratification, is documentation alignment on `architecture/ratified-alignment`:
+Documentation alignment is complete on the isolated branch `architecture/ratified-alignment` and pending review. The file-by-file schema and skill impact plan is the next **prospective** deliverable, subject to explicit authorization after that review. It is not presently authorized.
 
-1. Align `ARCHITECTURE.md`, `docs/crosswalk.md`, and the applicable decision/status documentation to the ratified model.
-2. Produce the file-by-file schema and skill impact plan required before any schema or skill-contract change.
-3. Reconcile that plan with the required CodexWriter-core versus Dust & Ash-profile separation.
-4. Obtain approval for the resulting schema and skill changes.
-5. Implement the staged vertical slice with fixtures, validators, tests, and CI.
-6. Run the second-host portability checkpoint.
+After documentation alignment is accepted and the impact plan is authorized, the prospective sequence is:
+
+1. Reconcile the schema and skill impact plan with the required CodexWriter-core versus Dust & Ash-profile separation.
+2. Obtain approval for the resulting schema and skill changes.
+3. Implement the staged vertical slice with fixtures, validators, tests, and CI.
+4. Run the second-host portability checkpoint.
 
 This document will be updated as evidence-based design decisions are made and as deferred design detail is specified.
 
