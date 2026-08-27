@@ -276,7 +276,7 @@ Exercise the layered hybrid model with one small generic project before Dust & A
 
 ## Recommendation for ratification
 
-If the layered hybrid model and the three blocks above are accepted, the first concrete next step is to update `ARCHITECTURE.md`, the crosswalk, the relevant schemas, and the affected skill contracts to reflect:
+If the layered hybrid model and the three blocks above are accepted, the first concrete next step is to update `ARCHITECTURE.md`, `docs/crosswalk.md`, and the applicable decision/status documentation to reflect the ratified rules. Alignment of schemas and skill contracts is a separate decision that requires a file-by-file impact plan and approval; it is not part of this step.
 
 - the authority matrix and the no-silent-overwrite rule;
 - the separate canon vs. editorial vs. derived categories;
@@ -302,4 +302,4 @@ In particular, ratification does not authorize schema, template, skill, validato
 
 **Suggested approval statement if accepted:**
 
-> I accept the layered hybrid model as the default authority model for CodexWriter and I accept this ratification addendum into Blocks A, B, and C as the basis for updating ARCHITECTURE.md, the crosswalk, the schemas, and the affected skill contracts. I am not yet authorizing implementation, merging the branch, or beginning the infrastructure workstream. The next authorized step is to make the maintenance and alignment updates that the ratified rules require; implementation begins only after those updates are reviewed.
+> I accept the layered hybrid model as the default authority model for CodexWriter and I accept this ratification addendum into Blocks A, B, and C as the basis for the maintenance and alignment updates to `ARCHITECTURE.md` and the applicable decision/status documentation. I am not yet authorizing implementation, merging the branch, or beginning the infrastructure workstream. Schema, template, skill, validator, initializer, runtime, CI, and vertical-slice implementation changes are not authorized by this ratification, and the alignment of schemas and skill contracts is a separate decision requiring a file-by-file impact plan and approval. The next authorized step is to make the maintenance and alignment updates that the ratified rules require; implementation begins only after those updates are reviewed, and only after any schema or skill-contract changes have their own impact plan and approval.
