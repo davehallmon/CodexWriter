@@ -176,20 +176,6 @@ The following are author-facing creative tasks for the Dust & Ash novel. They ar
 
 ---
 
-## Historical snapshot notice
-
-**Date:** August 27, 2026
-
-Sections **1 through 9** (accepted decisions, evaluation basis and methodology, summary of findings, four priority adjustments, public-log sensitivity inventory, framework task list, Dust & Ash project track, six-step immediate sequence, and decision record notes) are a **dated historical snapshot** from August 26, 2026. They record the state of the evaluation at that time, including the original task list, immediate sequence, and Rhavekost/synthesis status.
-
-**Those operational statuses are superseded by the August 27 ratification note below.** The ratification addendum at commit `70861e660d7d7e5261482834397f5f6a97aa43d3` and the ratification note in this section are the current governing material.
-
-**Do not execute the old "next steps," task list, or immediate sequence as current instructions.** Those sections are retained as historical evidence, not as current action items.
-
-The original F1 and F2 reasoning and the evaluation basis are historical evidence and are preserved verbatim above. Only the current-status handling is corrected below.
-
----
-
 ## Ratification note
 
 **Date:** August 27, 2026
@@ -201,9 +187,9 @@ The original F1 and F2 reasoning and the evaluation basis are historical evidenc
 
 - **F1's provisional-state review is complete at the architecture level.** The seven-source synthesis is complete, and the layered hybrid architecture is ratified. The existing JSON state model remains a **provisional implementation prototype** until separately reviewed by the authorized file-by-file schema and skill impact plan.
 - **The hybrid architecture is ratified.** The ratified model establishes approved Markdown manuscript files as authoritative for exact narrative wording, approved structured state as authoritative for explicitly governed machine-checkable intended canon and workflow fields, and derived views as non-authoritative rebuildable projections. It establishes explicit author reconciliation when approved prose and approved structured canon conflict, validated transactions, stale-revision protection, provenance, audit history, and no silent overwrites as architectural requirements.
-- **Existing schemas remain a provisional implementation prototype until separately reviewed.** Ratification does not authorize schema or skill-contract changes. Documentation alignment is now complete on the isolated branch `architecture/ratified-alignment` and pending review. The file-by-file schema and skill impact plan is the next **prospective** deliverable, subject to explicit authorization after documentation alignment is accepted. It is not presently authorized. Before any schema or skill-contract change begins, the impact plan must be produced and approved separately.
-
-- **Documentation alignment is complete on the isolated branch** `architecture/ratified-alignment` **and pending review.** Ratification authorizes alignment updates only to `ARCHITECTURE.md`, `docs/crosswalk.md`, and the applicable decision/status documentation, on that branch created from commit `70861e660d7d7e5261482834397f5f6a97aa43d3`.
+- **Existing schemas remain a provisional implementation prototype until separately reviewed.** Ratification does not authorize schema or skill-contract changes. The next authorized step after documentation alignment is the file-by-file schema and skill impact plan, followed by a separate explicit authorization before any schema, skill, or implementation work begins.
+- **F2 remains in force.** CodexWriter remains a reusable fiction-authoring core with optional project profiles. The Biblical/ANE/Stephen King/Gemini/Thread Pull requirements remain extracted into the Dust & Ash profile. The reusable CodexWriter core and the optional Dust & Ash project profile remain separate.
+- **Documentation alignment is authorized.** Ratification authorizes alignment updates only to `ARCHITECTURE.md`, `docs/crosswalk.md`, and the applicable decision/status documentation, on the isolated branch `architecture/ratified-alignment` created from commit `70861e660d7d7e5261482834397f5f6a97aa43d3`.
 - **Schema, skill, and implementation changes remain unauthorized.** This ratification does not authorize merging the synthesis branch, changing schemas, templates, or skill contracts, or beginning validator, initializer, runtime, CI, portability, or vertical-slice implementation work. Reviewing the documentation-alignment changes does not automatically authorize implementation.
 - **The ratification addendum at commit `70861e6` is the governing decision instrument.** Where this decision record and the addendum address the same subject, the addendum controls because it is the instrument the user ratified.
 
