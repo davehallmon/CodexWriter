@@ -162,8 +162,8 @@ Summarize decisions only after the evidence sections are complete. Use terms suc
 | 4 | haowjy/creative-writing-skills | Merged analysis complete |
 | 5 | JeroTan/novel-writer-english | Merged analysis complete |
 | 6 | wgwtest/novel-writing | Analysis complete; ready for review |
-|| 7 | rhavekost/author-toolkit | Ready for review — pinned at `b78287003edf52e5f0784ee2b4a00411173358f` |
+| 7 | rhavekost/author-toolkit | Ready for review — pinned at `b78287003edf52e5f0784ee2b4a004111173358f` |
 
 ## Next Step
 
-Review `wgwtest-novel-writing.md`. After it is approved and merged, continue the provisional source order with Rhavekost unless review explicitly authorizes a separate synthesis step. No architecture or crosswalk decision is made in this status update.
+Review `rhavekost-author-toolkit.md`. After it is accepted and merged, all seven source analyses will be available for the separately authorized synthesis and state-architecture review. No architecture or crosswalk decision is made in this status update.
