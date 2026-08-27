@@ -168,7 +168,7 @@ The following are author-facing creative tasks for the Dust & Ash novel. They ar
 - The JSON model is **provisional pending the seven-source synthesis.** It is preserved but not ratified.
 - The Rhavekost source analysis is **not complete.** Only an independent upstream inspection has been performed. The CodexWriter analysis is still pending.
 - This document records framework-alignment decisions only. It does not make any other framework or implementation changes.
-| Files changed in this commit: `docs/decisions/2026-08-26-alignment-evaluation.md` (new), plus the public-log sensitivity inventory findings above (no files removed, moved, or redacted).
+- Files changed in this commit: `docs/decisions/2026-08-26-alignment-evaluation.md` (new), plus the public-log sensitivity inventory findings above (no files removed, moved, or redacted).
 
 ---
 
