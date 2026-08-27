@@ -154,7 +154,7 @@ Summarize decisions only after the evidence sections are complete. Use terms suc
 
 ## Status
 
-All seven source analyses are complete. Seven-source synthesis is complete. Architecture ratification is complete. Documentation alignment is in progress. Implementation remains pending a separate authorization.
+All seven analyses complete. Seven-source synthesis complete. Architecture ratified. Documentation alignment complete on `architecture/ratified-alignment`. Documentation alignment pending review. Implementation remains unauthorized.
 
 | Order | Source | Status |
 |---:|---|---|
@@ -163,9 +163,9 @@ All seven source analyses are complete. Seven-source synthesis is complete. Arch
 | 3 | zenstory-ai/oh-story-claudecode | Merged analysis complete |
 | 4 | haowjy/creative-writing-skills | Merged analysis complete |
 | 5 | JeroTan/novel-writer-english | Merged analysis complete |
-| 6 | wgwtest/novel-writing | Analysis complete; ready for review |
+| 6 | wgwtest/novel-writing | Merged analysis complete |
 | 7 | rhavekost/author-toolkit | Merged analysis complete — pinned at `b78287003edf52e5f0784ee2b4a004111173358f` |
 
 ## Next Step
 
-All seven source analyses are complete. Seven-source synthesis is complete. Architecture ratification is complete. Documentation alignment is in progress. Implementation remains pending a separate authorization.
+Review the documentation alignment. The file-by-file schema and skill impact plan is a prospective next deliverable and remains unauthorized until explicitly approved after that review.
