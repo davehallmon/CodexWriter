@@ -35,7 +35,7 @@ CodexWriter dispositions in this document are **Phase 1 candidates**, not final 
 - **Detected repository language:** Markdown.
 - **Runtime claims:** README and plugin.json target Claude Code only. No CLI tool, no cross-host support, no agentskills.io or OpenClaw compatibility claimed in the pinned manifests (the `avoid-ai-writing/SKILL.md` header claims broader compatibility, but that is the vendored skill's own claim, not the toolkit's).
 - **No `.github/` directory exists at the pinned commit**, so no repository-native GitHub Actions CI workflow was observed.
-- **Tree inventory:** 79 tracked files at the pinned commit. This analysis directly read the manifest, README, LICENSE, ATTRIBUTION.md, finding-schema.json, all six `SKILL.md` files, all reference files for `fiction-workshop` (9), `character-archetypes` (6), `narrative-nonfiction` (7 plus the skill itself), and `prose-mechanics` (SKILL.md plus `audit-tracker-template.md`, `sentence-length-variance.md`, `cliches-audit.md`, and the full 17 `references/*.md` audit-reference files). The remaining `prose-mechanics` exemplar files (14) and `story-structure` reference files (3 plus the skill itself) were not individually read in this pass but are listed in the tree inventory below.
+- **Tree inventory:** 79 tracked files at the pinned commit. The complete path-based partition is: 7 root/plugin/other files; 5 files under `avoid-ai-writing`; 8 under `character-archetypes`; 10 under `fiction-workshop`; 11 under `narrative-nonfiction`; 32 under `prose-mechanics`; and 6 under `story-structure`. Direct inspection covered the two plugin manifests, root README, root LICENSE, `ATTRIBUTION.md`, `finding-schema.json`, five complete `SKILL.md` files, the relevant portions of `avoid-ai-writing/SKILL.md`, all 9 supporting files under `fiction-workshop`, all 5 supporting files under `story-structure`, 3 of 7 supporting files under `character-archetypes`, 2 of 10 supporting files under `narrative-nonfiction`, and 6 of 18 top-level prose-mechanics reference files plus its audit-tracker asset. The other paths were inventoried but not individually inspected; Section 11 records the consequential exclusions.
 
 ### Observed tree inventory (79 files, pinned commit)
 
@@ -143,13 +143,13 @@ The pinned commit is a documentation/scope-commit on top of a larger `feature/fi
   - **License:** MIT
   - **Vendored commit:** [`b38ee9f8f529476ac2d4f870d2dce2d9a155f34d`](https://github.com/conorbronsdon/avoid-ai-writing/commit/b38ee9f8f529476ac2d4f870d2dce2d9a155f34d)
   - **Upstream LICENSE:** [`skills/avoid-ai-writing/LICENSE`](https://github.com/rhavekost/author-toolkit/blob/b78287003edf52e5f0784ee2b4a00411173358f/skills/avoid-ai-writing/LICENSE) — MIT, Copyright (c) 2026 Conor Bronsdon. Full text present.
-  - **Upstream README:** [`skills/avoid-ai-writing/UPSTREAM-README.md`](https://github.com/rhavekost/author-toolkit/blob/b78287003edf52e5f0784ee2b4a00411173358f/skills/avoid-ai-writing/UPSTREAM-README.md) — present.
-- **Vendored `avoid-ai-writing/` subtree:** SKILL.md, LICENSE, CHANGELOG.md, README.md, .gitignore, and UPSTREAM-README.md all present in the pinned tree.
+  - **Upstream README reference:** `ATTRIBUTION.md` points to `skills/avoid-ai-writing/UPSTREAM-README.md`, but that path is absent from the pinned tree.
+- **Vendored `avoid-ai-writing/` subtree:** SKILL.md, LICENSE, CHANGELOG.md, README.md, and .gitignore are present in the pinned tree. The preserved LICENSE satisfies the material MIT notice requirement; the missing `UPSTREAM-README.md` is a broken provenance/documentation reference, not a missing-license failure.
 - **No `NOTICE` file** at the root.
 
 ### Inference
 
-Provenance hygiene for the one vendored component is **sound and explicitly documented**. The root project and the vendored skill are both MIT. There is no multi-origin tangle, no Apache-2.0-compatibility concern, and no missing upstream license. This is cleaner than several CodexWriter sources (e.g., Lensetek's missing root LICENSE).
+Provenance hygiene for the one vendored component is **mostly sound and explicitly documented**. The root project and the vendored skill are both MIT, and the upstream LICENSE is preserved. However, `ATTRIBUTION.md` points to an `UPSTREAM-README.md` file that is not present at the pin, so the documentation trail contains one broken reference. There is no missing-license failure or Apache-2.0-compatibility concern.
 
 ### Uncertainty
 
@@ -611,9 +611,9 @@ These were noted during the analysis but not directly verified because the relev
 
 2. **`skills/narrative-nonfiction/references/*.md` and asset files.** 8 reference files and 2 asset files are tracked in the pinned tree. 2 reference files were directly read (`reveal-engineering.md` and `transformation-arc.md`); the remaining 6 reference files and 2 asset files were not individually opened. The metaphor-consistency, empirical-reveal, structural-reveal, conceptual-reveal, voice-editing, and exercise-design patterns should be inspected before CodexWriter relies on them.
 
-4. **`skills/avoid-ai-writing/SKILL.md` full detection rules.** The skill is 492 lines and was read in part. The specific AI-ism detection patterns (em-dash substitution, bold overuse, hollow intensifiers, hedging, etc.) should be reviewed before CodexWriter adopts or adapts them.
+3. **`skills/avoid-ai-writing/SKILL.md` full detection rules.** The skill is 492 lines and was partially inspected for the claims used here. The remaining AI-ism detection patterns should be fully reviewed before CodexWriter adopts or adapts them.
 
-5. **`scriptorium` engine availability in pinned state.** The `prose-mechanics/SKILL.md` engine hook says: "Before running any audit, check `command -v scriptorium`." It is unclear whether `scriptorium` is part of the pinned repository or an external tool the skill expects to be installed separately.
+4. **`scriptorium` engine availability in pinned state.** The `prose-mechanics/SKILL.md` engine hook says: "Before running any audit, check `command -v scriptorium`." It is unclear whether `scriptorium` is part of the pinned repository or an external tool the skill expects to be installed separately.
 
 ---
 
