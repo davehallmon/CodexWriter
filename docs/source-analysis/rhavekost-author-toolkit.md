@@ -572,11 +572,11 @@ All dispositions below are **Phase 1 candidates, not final decisions**.
 
 ### G. Prose-audit checklist — **adopt as reference content**
 
-**Disposition:** CodexWriter should adopt the 19-audit list and individual detection patterns from `prose-mechanics/references/*.md` as reference content for its prose-editing or prose-audit skill. The audit *concepts* are reusable; the `scriptorium` engine hook is platform-specific and should not be assumed.
+**Disposition:** CodexWriter should adopt the 19-category audit taxonomy in `prose-mechanics/SKILL.md` as a candidate checklist for its prose-audit capability. Adoption of individual detection rules from `prose-mechanics/references/*.md` is deferred until the relevant reference files are directly inspected. The `scriptorium` engine hook remains platform-specific and should not be assumed.
 
-**Evidence:** `prose-mechanics/SKILL.md`, lines 39-63; individual reference files in `skills/prose-mechanics/references/`.
+**Evidence:** `prose-mechanics/SKILL.md`, lines 39–65.
 
-**Rationale:** The audit types are a well-curated prose-diagnostic checklist. They are portable content, not platform-specific architecture.
+**Rationale:** The directly inspected skill establishes a useful audit taxonomy and focused-pass sequence. The underlying detection rules require separate evidence review before implementation-level adoption.
 
 ### H. Archetype and story-structure content — **adopt as reference content**
 
