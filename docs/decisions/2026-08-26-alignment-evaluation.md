@@ -178,9 +178,9 @@ The following are author-facing creative tasks for the Dust & Ash novel. They ar
 
 ## Ratification note
 
-**Date:** August 27, 2026  
-**Status:** Ratified — hybrid architecture ratified; documentation alignment authorized; schema, skill, and implementation changes remain unauthorized  
-**Branch:** `architecture/ratified-alignment`  
+**Date:** August 27, 2026
+**Status:** Ratified — hybrid architecture ratified; documentation alignment authorized; schema, skill, and implementation changes remain unauthorized
+**Branch:** `architecture/ratified-alignment`
 **Governing decision instrument:** CodexWriter ratification addendum at commit `70861e660d7d7e5261482834397f5f6a97aa43d3`
 
 ### What this note establishes
