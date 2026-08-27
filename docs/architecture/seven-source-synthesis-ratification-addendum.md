@@ -45,7 +45,7 @@ The tested rules below are intended to produce a single, consistent model. To ma
 
 The structured canon record must retain provenance pointing to the source passage, decision, or approval that established each promoted fact. Approval alone is not enough; the transaction must capture why the fact is now intended canon and where it came from.
 
-The four concrete conflict cases below test that model:
+The five concrete conflict cases below test that model:
 
 * **A manuscript says Avram is afraid of the divine encounter; the JSON character state currently records him as confident about it.** Conflict. Not silent overwrite. Neither prose nor state automatically wins. Block until the author resolves: either prose is wrong, state is wrong, or the state is stale and needs correction through the same promotion path. After resolution, the resolved side wins and the other side is flagged or revised.
 * **Orchestrator increments `state_revision` and sets `phase_gate = approved`, but no author approval record exists.** Transaction validation fails. The status change is not applied. The author must approve or record the approval before the workflow field becomes canon.
