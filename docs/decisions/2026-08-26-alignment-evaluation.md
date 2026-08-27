@@ -168,7 +168,13 @@ The following are author-facing creative tasks for the Dust & Ash novel. They ar
 - The JSON model is **provisional pending the seven-source synthesis.** It is preserved but not ratified.
 - The Rhavekost source analysis is **not complete.** Only an independent upstream inspection has been performed. The CodexWriter analysis is still pending.
 - This document records framework-alignment decisions only. It does not make any other framework or implementation changes.
-- Files changed in this commit: `docs/decisions/2026-08-26-alignment-evaluation.md` (new), plus the public-log sensitivity inventory findings above (no files removed, moved, or redacted).
+| Files changed in this commit: `docs/decisions/2026-08-26-alignment-evaluation.md` (new), plus the public-log sensitivity inventory findings above (no files removed, moved, or redacted).
+
+---
+
+## Historical snapshot notice
+
+**Sections 1 through 9 preserve the August 26 historical record.** They contain the original task list, immediate sequence, and Rhavekost/synthesis status that were current on August 26. **Their operational statuses and next steps are superseded.** The August 27 ratification note below governs current status. Readers must not execute the task list, immediate sequence, or operational statuses in Sections 1–9 as current instructions. The original F1/F2 reasoning and evaluation basis are preserved as historical evidence; only the current-status handling is corrected in the ratification note.
 
 ---
 
@@ -191,9 +197,9 @@ Those operational statuses are superseded by the August 27 ratification note bel
 
 ### What this note establishes
 
-- **F1's provisional-state review is complete at the architecture level.** The seven-source synthesis is complete, and the layered hybrid architecture is ratified. The existing JSON state model remains a **provisional implementation prototype** until separately reviewed by the authorized file-by-file schema and skill impact plan.
+- **F1's provisional-state review is complete at the architecture level.** The seven-source synthesis is complete, and the layered hybrid architecture is ratified. The existing JSON state model remains a **provisional implementation prototype** until separately reviewed by a future, separately authorized file-by-file schema and skill impact plan.
 - **The hybrid architecture is ratified.** The ratified model establishes approved Markdown manuscript files as authoritative for exact narrative wording, approved structured state as authoritative for explicitly governed machine-checkable intended canon and workflow fields, and derived views as non-authoritative rebuildable projections. It establishes explicit author reconciliation when approved prose and approved structured canon conflict, validated transactions, stale-revision protection, provenance, audit history, and no silent overwrites as architectural requirements.
-- **Existing schemas remain a provisional implementation prototype until separately reviewed.** Ratification does not authorize schema or skill-contract changes. The next authorized step after documentation alignment is the file-by-file schema and skill impact plan, followed by a separate explicit authorization before any schema, skill, or implementation work begins.
+- **Existing schemas remain a provisional implementation prototype until separately reviewed.** Ratification does not authorize schema or skill-contract changes. After documentation alignment is accepted, the next prospective deliverable is a future, separately authorized file-by-file schema and skill impact plan, followed by a separate explicit authorization before any schema, skill, or implementation work begins.
 - **F2 remains in force.** CodexWriter remains a reusable fiction-authoring core with optional project profiles. The Biblical/ANE/Stephen King/Gemini/Thread Pull requirements are **designated for extraction** into the optional Dust & Ash profile. That extraction **has not yet been implemented**. The reusable CodexWriter core and the optional Dust & Ash project profile remain separate.
 - **Documentation alignment is complete on the isolated branch** `architecture/ratified-alignment` **and pending review.** Ratification authorizes alignment updates only to `ARCHITECTURE.md`, `docs/crosswalk.md`, and the applicable decision/status documentation, on that branch created from commit `70861e660d7d7e5261482834397f5f6a97aa43d3`.
 

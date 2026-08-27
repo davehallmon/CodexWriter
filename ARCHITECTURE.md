@@ -1,6 +1,6 @@
 # CodexWriter — Architecture
 
-> This document describes the ratified high-level architecture of CodexWriter, **the existing provisional prototype that already exists in the repository**, and the design detail that remains deferred or unimplemented.
+> This document describes the ratified high-level architecture of CodexWriter, **the existing provisional prototype in the repository**, and the design detail that remains deferred or unimplemented.
 >
 > **Reading rule:** This document labels each concept as one of four classes. When a concept is unbuilt, it is labeled as such; unbuilt validators, transaction tooling, context assemblers, registries, adapters, or tests are documented as design targets, not as operational capabilities.
 
@@ -147,7 +147,7 @@ The following design details are not yet frozen. They are correct as direction, 
 - **Exact LOD thresholds and projection sizes for context sharding.** The minimum responsibility is ratified; the exact sharding boundaries, LOD levels, and projection sizes are deferred until after the first vertical slice.
 - **Exact derived-view projection schemas.** Rebuildability is ratified; the exact shapes of each derived view are deferred until implementation.
 - **Exact porting checklist.** The host-neutral/host-adapter boundary and two-host evidence requirement are ratified; the exact checklist is deferred until after the vertical slice.
-- **Exact schemas affected by the authority model.** The authority model requires schemas to distinguish canon fields from editorial fields, but the exact field-by-field reclassification is not yet specified; it is the subject of the authorized file-by-file impact plan that comes after documentation alignment.
+- **Exact schemas affected by the authority model.** The authority model requires schemas to distinguish canon fields from editorial fields, but the exact field-by-field reclassification is not yet specified; it is the subject of a future, separately authorized file-by-file schema and skill impact plan that comes after documentation alignment.
 - **Exact continuity finding schema.** A shared envelope with confidence and determinism classification is recommended, but not yet specified in detail.
 - **Exact promotion and approval paths for project initialization, state-update, and editorial skills.** The paths are ratified in principle; the exact per-skill contract is deferred until schema and skill-alignment review.
 
@@ -266,7 +266,7 @@ The ratified state model distinguishes:
 
 The existing JSON state model is defined by four schema files — `schemas/story-state.schema.json`, `schemas/character-state.schema.json`, `schemas/scene-state.schema.json`, and `schemas/continuity.schema.json` — and related skill contracts. It is a **provisional implementation prototype** pending separately reviewed schema alignment. It is preserved but not ratified. It may prove correct, partially correct, or in need of revision; that determination requires the prospective file-by-file schema and skill impact plan and a separate approval.
 
-Only after the ratified model and the authorized schema review should CodexWriter finalize the exact schema set. The hybrid model is the ratified decision; the exact schemas are a deferred implementation detail until the impact plan is approved.
+Only after the ratified model and a future, separately authorized schema review should CodexWriter finalize the exact schema set. The hybrid model is the ratified decision; the exact schemas are a deferred implementation detail until a future, separately authorized schema and skill impact plan is approved.
 
 ## 14. Context management strategy
 
