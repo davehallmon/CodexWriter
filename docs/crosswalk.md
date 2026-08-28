@@ -11,13 +11,6 @@
 > - `Rejected` — a candidate considered and set aside.
 > - `Source-informed candidate` — discussed, explored, recommended, or contemplated in source evidence or synthesis, compatible with the ratified model, but not ratified and not verifiably implemented in the tracked prototype.
 
-## Historical snapshot notice
-
-Sections 1–9 preserve the August 26 historical record; their operational
-statuses and next steps are superseded. The August 27 ratification note
-governs current status. Readers must not execute the old task list or
-immediate sequence as current instructions.
-
 ## Ratified patterns
 
 These are the patterns explicitly established by Blocks A, B, and C of the ratification addendum and by F1/F2.
@@ -75,7 +68,7 @@ These patterns are verifiably present in the existing provisional prototype in t
 | Five-phase pipeline shape with phase gates | Lensetek, prototype | Workflow policy | Prototype only | Workflow policy | **Evidence:** Phase structure and gate language in `skills/fiction-orchestrator/SKILL.md` (intent classification routing table and phase compatibility matrix referencing Gates 1–5) and `schemas/story-state.schema.json` (phase and phase_gate fields). Only the framework/story gate separation is ratified; exact gate set is prototype- or profile-specific and not yet executed. |
 | Specialist role taxonomy present in the prototype | Lensetek, prototype | Creative core + control/coordination | Prototype only | Architecture | **Evidence:** Distinct `SKILL.md` files in `skills/` for each role. Present in the prototype; not a ratified taxonomy. |
 | Story-state vocabulary present in the prototype (POV, knows/doesn't-know, promise/payoff) | Lensetek, wgwtest, prototype | Creative core | Prototype only | Architecture | **Evidence:** Vocabulary appears in `schemas/*.schema.json` and `skills/*/SKILL.md` files. Present in the prototype vocabulary; not separately ratified beyond the authority model. |
-| Thread Pull design | Project-specific Dust & Ash material | Optional project-profile behavior | Prototype only | Optional project-profile behavior | **Evidence:** Three temporal threads (present/past/future "Thread Pulls") with no conventional flashbacks, tracked in `templates/scene-template.md`, `skills/narrative-architecture/SKILL.md`, `skills/scene-planning/SKILL.md`, and `skills/scene-writing/SKILL.md`. F2 designates this material for future extraction into the optional Dust & Ash project profile, but that extraction has not occurred. Not ratified reusable-core architecture. |
+| Thread Pull design | Project-specific Dust & Ash material | Optional project-profile behavior | Prototype only | Optional project-profile behavior | **Evidence:** Thread Pull design is present in `templates/scene-template.md`, `skills/narrative-architecture/SKILL.md`, `skills/scene-planning/SKILL.md`, and `skills/scene-writing/SKILL.md`. F2 designates this material for future extraction into the optional Dust & Ash project profile, but that extraction has not occurred. Not ratified reusable-core architecture. |
 | Voice-preservation guidance in scene-writing and prose-editing | Haowjy, prototype | Creative core | Prototype only | Implementation guidance | **Evidence:** Guidance present in `skills/scene-writing/SKILL.md` and `skills/prose-editing/SKILL.md`. The separate author-memory authority category was ratified (above), but the exact voice-guidance implementation was not. |
 | Phase approval gates as used in the prototype | Lensetek, prototype | Workflow policy | Prototype only | Workflow policy | **Evidence:** Gate structure referenced in `skills/*/SKILL.md` files and skill contracts. Reference behavior; exact gate set is prototype- or profile-specific, not ratified universal policy. |
 

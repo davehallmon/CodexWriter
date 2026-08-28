@@ -5,6 +5,8 @@
 **Branch:** `development`  
 **Evaluation basis:** CodexWriter commit [`50dee18a`](https://github.com/davehallmon/CodexWriter/tree/50dee18a1a43c76f86786788a5d82be0379d4f48); six completed CodexWriter source analyses; independent inspection of Rhavekost at upstream commit [`b78287003edf52e5f0784ee2b4a004111173358f`](https://github.com/rhavekost/author-toolkit/commit/b78287003edf52e5f0784ee2b4a00411173358f)
 
+> **Current-status notice — August 27, 2026:** Sections 1–9 below are preserved as the historical August 26 decision record. Their operational statuses, task list, immediate sequence, and next steps are superseded by the August 27 ratification note later in this document. Do not execute them as current instructions.
+
 ---
 
 ## 1. Accepted Decisions
@@ -169,12 +171,6 @@ The following are author-facing creative tasks for the Dust & Ash novel. They ar
 - The Rhavekost source analysis is **not complete.** Only an independent upstream inspection has been performed. The CodexWriter analysis is still pending.
 - This document records framework-alignment decisions only. It does not make any other framework or implementation changes.
 - Files changed in this commit: `docs/decisions/2026-08-26-alignment-evaluation.md` (new), plus the public-log sensitivity inventory findings above (no files removed, moved, or redacted).
-
----
-
-## Historical snapshot notice
-
-**Sections 1 through 9 preserve the August 26 historical record.** They contain the original task list, immediate sequence, and Rhavekost/synthesis status that were current on August 26. **Their operational statuses and next steps are superseded.** The August 27 ratification note below governs current status. Readers must not execute the task list, immediate sequence, or operational statuses in Sections 1–9 as current instructions. The original F1/F2 reasoning and evaluation basis are preserved as historical evidence; only the current-status handling is corrected in the ratification note.
 
 ---
 
