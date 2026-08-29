@@ -3,15 +3,15 @@
 # CodexWriter Operational Progress Log
 
 ## 1. System State Reference
-- Generated At: 2026-08-29 18:17:46 UTC
-- Active Branch: `governance/operational-control`
+- Generated At: 2026-08-29 18:26:01 UTC
+- Active Branch: `main`
 - Active Profile: `core`
-- Source State Commit: `d6384996c0bc47e38bfb139497a8a57f3c86d12c`
+- Source State Commit: `43b7de05fb2acf85c1d3018965da3c08471bca1d`
 - Commit Semantics: Source State Commit is the input state used to generate this view; it is not the self-referential commit containing this file.
 
 ## 2. Active Run Delta
 - Run ID: `GOV-2026-08-29-01`
-- Status: `proposed`
+- Status: `completed`
 - Summary: Establish deterministic operational-control data and generated root views.
 
 ### Work Completed This Session
@@ -20,14 +20,13 @@
 - Added governance tests, CI, and ownership routing.
 
 ### Work In Progress
-- Repository-owner review and merge of the governance pull request.
+- Enable repository branch-protection settings.
 
 ### Result Reference
-- Commit Reference: Resolved from Git history after commit
-- Note: Resolve from the Git commit containing this snapshot; a tracked file cannot contain its own commit hash.
+- Commit Reference: `43b7de05fb2acf85c1d3018965da3c08471bca1d`
+- Note: Main promotion merge commit.
 
 ## 3. Active Blockers & Open Decisions
-- [GOV-B01] (high): The canonical target branch and merge path require repository-owner confirmation during pull-request review.
 - [GOV-B02] (high): GitHub branch protection and required-check settings are not represented in repository files and must be enabled in repository settings.
 
 ## 4. Current Task Queue
@@ -44,3 +43,4 @@
 
 ## 5. Short Log History
 - [2026-08-29]: Commit `d6384996c0bc47e38bfb139497a8a57f3c86d12c` — Established the root handoff file on the planning branch.
+- [2026-08-29]: Commit `43b7de05fb2acf85c1d3018965da3c08471bca1d` — Promoted the approved governance and architecture lineage to main.

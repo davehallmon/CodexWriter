@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-29 18:17:46 UTC",
-  "active_branch": "governance/operational-control",
+  "generated_at": "2026-08-29 18:26:01 UTC",
+  "active_branch": "main",
   "active_profile": "core",
-  "source_state_commit": "d6384996c0bc47e38bfb139497a8a57f3c86d12c",
+  "source_state_commit": "43b7de05fb2acf85c1d3018965da3c08471bca1d",
   "run": {
     "id": "GOV-2026-08-29-01",
-    "status": "proposed",
+    "status": "completed",
     "summary": "Establish deterministic operational-control data and generated root views.",
     "completed": [
       "Defined canonical JSON control records.",
@@ -14,17 +14,12 @@
       "Added governance tests, CI, and ownership routing."
     ],
     "work_in_progress": [
-      "Repository-owner review and merge of the governance pull request."
+      "Enable repository branch-protection settings."
     ],
-    "result_commit": null,
-    "result_reference": "Resolve from the Git commit containing this snapshot; a tracked file cannot contain its own commit hash."
+    "result_commit": "43b7de05fb2acf85c1d3018965da3c08471bca1d",
+    "result_reference": "Main promotion merge commit."
   },
   "blockers": [
-    {
-      "id": "GOV-B01",
-      "severity": "high",
-      "description": "The canonical target branch and merge path require repository-owner confirmation during pull-request review."
-    },
     {
       "id": "GOV-B02",
       "severity": "high",
@@ -36,6 +31,11 @@
       "date": "2026-08-29",
       "commit": "d6384996c0bc47e38bfb139497a8a57f3c86d12c",
       "summary": "Established the root handoff file on the planning branch."
+    },
+    {
+      "date": "2026-08-29",
+      "commit": "43b7de05fb2acf85c1d3018965da3c08471bca1d",
+      "summary": "Promoted the approved governance and architecture lineage to main."
     }
   ]
 }
