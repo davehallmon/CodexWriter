@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "decisions": [
+    {
+      "id": "D1",
+      "status": "accepted",
+      "title": "Separate author memory from story canon",
+      "decision": "Move author_preferences out of story-state into a separate author-memory store.",
+      "source": "PROGRESS.md at d6384996c0bc47e38bfb139497a8a57f3c86d12c"
+    },
+    {
+      "id": "D2",
+      "status": "accepted",
+      "title": "Evolve the provisional schema family",
+      "decision": "Evolve the four existing schemas and add separate artifacts only for distinct authority or lifecycle boundaries.",
+      "source": "PROGRESS.md at d6384996c0bc47e38bfb139497a8a57f3c86d12c"
+    },
+    {
+      "id": "D3",
+      "status": "accepted",
+      "title": "Correct reader-simulation timing",
+      "decision": "Correct the skill contract first and prove context isolation in the vertical slice.",
+      "source": "PROGRESS.md at d6384996c0bc47e38bfb139497a8a57f3c86d12c"
+    },
+    {
+      "id": "GOV-01",
+      "status": "accepted",
+      "title": "Use stable milestone identifiers",
+      "decision": "Preserve historical phase vocabulary and use ARCH-01, CP1A, CP1B, CP2, and PROFILE-01 as stable operational identifiers.",
+      "source": "Repository owner instruction dated 2026-08-29"
+    },
+    {
+      "id": "GOV-02",
+      "status": "accepted",
+      "title": "Treat Markdown reports as derived views",
+      "decision": "Canonical operational data lives under project/control; root Markdown governance files are deterministic generated projections.",
+      "source": "Repository owner instruction dated 2026-08-29"
+    }
+  ]
+}

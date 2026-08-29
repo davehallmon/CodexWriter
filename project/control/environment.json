@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "document_version": "1.0.0",
+  "owner": "Dave Hallmon",
+  "ownership_policy": "Human-owned and version-controlled. Agents may propose changes only through a human-reviewed pull request.",
+  "last_verified": "2026-08-28",
+  "stable_governance": {
+    "operating_model": "Asymmetric LLM-as-a-Judge generation-verification workflow",
+    "worker": {
+      "name": "Hermes",
+      "role": "Execute bounded repository work and return evidence",
+      "repository_access": "Local write access when explicitly authorized"
+    },
+    "judge": {
+      "name": "ChatGPT-5 Sol",
+      "role": "Independently inspect evidence, assess architecture, and issue verdicts",
+      "repository_access": "Connector capability does not authorize implementation unless the repository owner explicitly requests it"
+    },
+    "human_authority": "The repository owner approves consequential architecture, merge, release, and environment changes."
+  },
+  "current_snapshot": {
+    "host": {
+      "hardware": "Chromebook",
+      "os": "ChromeOS Stable",
+      "linux_subsystem": "Crostini / Debian GNU/Linux 13 (trixie)",
+      "architecture": "x86_64",
+      "memory": "Approximately 13 GiB visible to Linux; no guest swap",
+      "workspace": "/home/davehallmon/CodexWriter",
+      "shell": "Bash"
+    },
+    "tooling": {
+      "version_control": "Git and GitHub",
+      "python": "3.13.5",
+      "node": "26.7.0",
+      "git": "2.47.3",
+      "docker": "not installed"
+    },
+    "hermes_limits": {
+      "max_agent_steps": 100,
+      "subagent_turn_limit": 80,
+      "parallel_subagents": 3,
+      "subagent_timeout_seconds": 900,
+      "command_timeout_seconds": 600,
+      "context_window": "automatic",
+      "compression_threshold": 0.75,
+      "compression_target": 0.45,
+      "keep_awake": true
+    },
+    "browser": {
+      "memory_saver": "Balanced",
+      "experimental_flags": "No user overrides"
+    }
+  },
+  "security_rules": [
+    "Never commit credentials, tokens, private transcripts, or unrelated personal files.",
+    "Treat technical access as capability, not authorization.",
+    "Verify live repository and environment state before consequential work.",
+    "Use placeholders for credentials in documentation."
+  ],
+  "drift_policy": "Update the snapshot through a human-reviewed pull request when material host, toolchain, model, limit, or responsibility boundaries change."
+}
