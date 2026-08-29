@@ -1,0 +1,8 @@
+# Human review boundary for operational authority and generated views.
+/project/control/ @davehallmon
+/scripts/generate_operational_views.py @davehallmon
+/PROGRESS.md @davehallmon
+/STATUS.md @davehallmon
+/ROADMAP.md @davehallmon
+/ENVIRONMENT.md @davehallmon
+/.github/workflows/governance-views.yml @davehallmon

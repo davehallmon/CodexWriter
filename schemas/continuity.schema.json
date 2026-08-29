@@ -1,0 +1,212 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ContinuityState",
+  "description": "Continuity tracking — cross-scene contradictions, knowledge consistency, timeline ordering, and promise/payoff validation",
+  "type": "object",
+  "required": [
+    "continuity_revision",
+    "last_check_at",
+    "character_consistency",
+    "timeline_consistency",
+    "knowledge_consistency",
+    "promise_consistency",
+    "open_contradictions",
+    "check_history"
+  ],
+  "properties": {
+    "continuity_revision": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Monotonically increasing — incremented each time a continuity check runs"
+    },
+    "last_check_at": { "type": "string", "format": "date-time" },
+    "last_check_by": {
+      "type": "string",
+      "description": "Which skill or validator ran the check"
+    },
+    "character_consistency": {
+      "type": "array",
+      "description": "Per-character consistency checks",
+      "items": {
+        "type": "object",
+        "properties": {
+          "check_id": { "type": "string" },
+          "character_id": { "type": "string" },
+          "check_type": {
+            "type": "string",
+            "enum": [
+              "voice",
+              "physical_state",
+              "knowledge",
+              "emotional_continuity",
+              "relationship",
+              "pressure_system"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": ["passed", "flagged", "contradiction", "not_checkable"]
+          },
+          "finding": { "type": "string" },
+          "severity": {
+            "type": "string",
+            "enum": ["info", "low", "medium", "high", "critical"]
+          }
+        }
+      }
+    },
+    "timeline_consistency": {
+      "type": "array",
+      "description": "Timeline ordering and causal consistency checks",
+      "items": {
+        "type": "object",
+        "properties": {
+          "check_id": { "type": "string" },
+          "event_pair": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "check_type": {
+            "type": "string",
+            "enum": ["ordering", "gap", "overlap", "causal"]
+          },
+          "status": {
+            "type": "string",
+            "enum": ["passed", "flagged", "contradiction", "cannot_resolve"]
+          },
+          "finding": { "type": "string" },
+          "severity": {
+            "type": "string",
+            "enum": ["info", "low", "medium", "high", "critical"]
+          }
+        }
+      }
+    },
+    "knowledge_consistency": {
+      "type": "array",
+      "description": "Character knowledge state consistency — critical for POV integrity",
+      "items": {
+        "type": "object",
+        "properties": {
+          "check_id": { "type": "string" },
+          "character_id": { "type": "string" },
+          "knowledge_item": { "type": "string" },
+          "check_type": {
+            "type": "string",
+            "enum": [
+              "knows_before_should",
+              "does_not_know_should",
+              "revealed_early",
+              "hidden_too_long"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": ["passed", "flagged", "contradiction"]
+          },
+          "finding": { "type": "string" },
+          "severity": {
+            "type": "string",
+            "enum": ["info", "low", "medium", "high", "critical"]
+          }
+        }
+      }
+    },
+    "promise_consistency": {
+      "type": "array",
+      "description": "Promise/payoff setup and payoff tracking",
+      "items": {
+        "type": "object",
+        "properties": {
+          "check_id": { "type": "string" },
+          "promise_id": { "type": "string" },
+          "check_type": {
+            "type": "string",
+            "enum": [
+              "setup_without_payoff",
+              "payoff_without_setup",
+              "payoff_too_early",
+              "payoff_too_late",
+              "payoff_subverted_intentionally"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": ["passed", "flagged", "resolved", "intentional"]
+          },
+          "finding": { "type": "string" },
+          "severity": {
+            "type": "string",
+            "enum": ["info", "low", "medium", "high", "critical"]
+          }
+        }
+      }
+    },
+    "open_contradictions": {
+      "type": "array",
+      "description": "Known contradictions not yet resolved",
+      "items": {
+        "type": "object",
+        "required": [
+          "contradiction_id",
+          "description",
+          "location_a",
+          "location_b",
+          "type",
+          "severity"
+        ],
+        "properties": {
+          "contradiction_id": { "type": "string" },
+          "description": { "type": "string" },
+          "location_a": { "type": "string" },
+          "location_b": { "type": "string" },
+          "type": {
+            "type": "string",
+            "enum": [
+              "character",
+              "timeline",
+              "knowledge",
+              "object_state",
+              "relationship",
+              "promise",
+              "tone"
+            ]
+          },
+          "severity": {
+            "type": "string",
+            "enum": ["critical", "high", "medium", "low"]
+          },
+          "author_stance": {
+            "type": "string",
+            "enum": [
+              "unresolved",
+              "resolved",
+              "accepted_as_intentional",
+              "false_positive"
+            ]
+          },
+          "resolution_notes": { "type": "string" }
+        }
+      }
+    },
+    "check_history": {
+      "type": "array",
+      "description": "Log of each continuity check run",
+      "items": {
+        "type": "object",
+        "properties": {
+          "check_revision": { "type": "integer" },
+          "checked_at": { "type": "string", "format": "date-time" },
+          "checked_by": { "type": "string" },
+          "scope": {
+            "type": "string",
+            "description": "Which chapters/scenes were included in the check"
+          },
+          "findings_count": { "type": "integer" },
+          "contradictions_open": { "type": "integer" },
+          "summary": { "type": "string" }
+        }
+      }
+    }
+  }
+}

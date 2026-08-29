@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CharacterState",
+  "description": "Current dynamic state for a character — what they know, feel, and carry into the next scene. Separate from static dossier (voice, backstory, design).",
+  "type": "object",
+  "required": ["character_id", "name", "current_state_revision", "knowledge", "emotional_state", "physical_state", "carried_pressure", "last_seen_chapter", "updated_at"],
+  "properties": {
+    "character_id": { "type": "string", "pattern": "^[a-z0-9-]+$", "description": "Must match the character_id in story-state.chars" },
+    "name": { "type": "string" },
+    "current_state_revision": { "type": "integer", "minimum": 1, "description": "Monotonically increasing — incremented each time this file is updated" },
+    "knowledge": {
+      "type": "object",
+      "description": "What this character knows at this point in the story",
+      "properties": {
+        "knows_about": { "type": "array", "items": { "type": "string" }, "description": "List of event_ids, plot_arcs, or facts the character knows" },
+        "does_not_know": { "type": "array", "items": { "type": "string" }, "description": "Facts/events the character is unaware of — critical for POV integrity" },
+        "misconceptions": { "type": "array", "items": { "type": "string" }, "description": "Beliefs the character holds that are not true" },
+        "uncertain_about": { "type": "array", "items": { "type": "string" }, "description": "Things the character suspects but is not sure about" }
+      }
+    },
+    "emotional_state": {
+      "type": "object",
+      "description": "The character's current emotional condition — for scene-level psychological realism",
+      "properties": {
+        "dominant_emotions": { "type": "array", "items": { "type": "string" }, "description": "Primary emotions right now, e.g. ['dread', 'grief', 'defensive']" },
+        "pressure_level": { "type": "string", "enum": ["low", "moderate", "high", "breaking"], "description": "How loaded the character's pressure system is" },
+        "recent_trigger": { "type": "string", "description": "What just happened to push them to this state (event_id or description)" },
+        "suppressed_feelings": { "type": "array", "items": { "type": "string" }, "description": "Feelings the character is actively hiding" }
+      }
+    },
+    "physical_state": {
+      "type": "object",
+      "description": "Physical condition affecting scene portrayal",
+      "properties": {
+        "injured": { "type": "boolean" },
+        "injury_description": { "type": "string" },
+        "fatigue_level": { "type": "string", "enum": ["rested", "alert", "tired", "exhausted"] },
+        "physical_tells": { "type": "array", "items": { "type": "string" }, "description": "Bodily manifestations of internal state, per character voice rules" },
+        "carried_objects": { "type": "array", "items": { "type": "string" }, "description": "Objects currently in possession" }
+      }
+    },
+    "carried_pressure": { "type": "string", "description": "The specific pressure this character is carrying into the next scene — the 'load' they bring" },
+    "last_seen_chapter": { "type": "string", "description": "chapter_id where this character was last active" },
+    "last_updated_by": { "type": "string", "description": "Which skill or agent last updated this state" },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "source_lineage_note": { "type": "string", "description": "How was this state derived? From which scenes, evidence, or inference?" }
+  }
+}

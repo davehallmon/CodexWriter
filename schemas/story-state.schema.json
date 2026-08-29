@@ -1,0 +1,167 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "StoryState",
+  "description": "Top-level persistent state for a CodexWriter fiction project. One file per book.",
+  "type": "object",
+  "required": ["project_id", "book_id", "title", "phase", "state_revision", "characters", "world", "plot", "timeline", "chapters", "open_questions", "promises_payoffs", "author_preferences"],
+  "properties": {
+    "project_id": { "type": "string", "description": "Unique project identifier, e.g. 'dust-and-ash'" },
+    "book_id": { "type": "string", "description": "Unique book identifier, e.g. 'book-001'" },
+    "title": { "type": "string", "description": "Working title of the book" },
+    "phase": { "type": "string", "enum": ["concept", "worldbuilding", "plot", "drafting", "polish", "export"], "description": "Current phase in the 5-phase pipeline" },
+    "phase_gate": { "type": "string", "enum": ["pending", "approved", "rejected"], "description": "Human approval status for current phase" },
+    "state_revision": { "type": "integer", "minimum": 1, "description": "Monotonically increasing revision counter — incremented on every commit" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "characters": {
+      "type": "object",
+      "description": "Map of character_id → character state reference",
+      "additionalProperties": { "$ref": "#/definitions/CharacterRef" }
+    },
+    "world": { "$ref": "#/definitions/WorldState" },
+    "plot": { "$ref": "#/definitions/PlotState" },
+    "timeline": { "$ref": "#/definitions/Timeline" },
+    "chapters": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/ChapterRef" },
+      "description": "Ordered list of chapter references in canonical sequence"
+    },
+    "open_questions": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/OpenQuestion" },
+      "description": "Unresolved creative decisions requiring author input"
+    },
+    "promises_payoffs": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/PromisePayoff" },
+      "description": "Setup/payoff tracking for narrative arcs"
+    },
+    "author_preferences": { "$ref": "#/definitions/AuthorPreferences" },
+    "continuity_risks": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/ContinuityRisk" },
+      "description": "Known continuity concerns flagged by reviews"
+    }
+  },
+  "definitions": {
+    "CharacterRef": {
+      "type": "object",
+      "required": ["character_id", "name", "role_label", "status"],
+      "properties": {
+        "character_id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+        "name": { "type": "string" },
+        "role_label": { "type": "string" },
+        "status": { "type": "string", "enum": ["active", "introduced", "inactive", "deceased", "merged"] },
+        "knowledge_level": { "type": "string", "enum": ["unknown", "partial", "full"] },
+        "current_state_ref": { "type": "string", "description": "Path to the full current-state document, e.g. characters/avram/current.md" },
+        "voice_ref": { "type": "string", "description": "Path to voice/style reference, e.g. characters/avram/voice.md" },
+        "first_appearance_chapter": { "type": "integer" },
+        "last_appearance_chapter": { "type": "integer" },
+        "pressure_system": { "type": "string", "description": "Brief description of the character's unique internal pressure system" }
+      }
+    },
+    "WorldState": {
+      "type": "object",
+      "required": ["settings", "rules", "cultural_context"],
+      "properties": {
+        "settings": {
+          "type": "array",
+          "items": { "type": "object", "properties": { "location_id": { "type": "string" }, "name": { "type": "string" }, "type": { "type": "string", "enum": ["protagonist_home", "foreign_court", "wilderness", "city", "sacred_site", "other"] }, "status": { "type": "string", "enum": ["established", "visited", "mentioned"] } } }
+        },
+        "rules": {
+          "type": "array",
+          "items": { "type": "object", "properties": { "rule_id": { "type": "string" }, "category": { "type": "string", "enum": ["physical", "social", "cultural", "supernatural", "theological"] }, "statement": { "type": "string" }, "source": { "type": "string" } } }
+        },
+        "cultural_context": { "type": "string", "description": "Brief summary of relevant cultural/historical context" }
+      }
+    },
+    "PlotState": {
+      "type": "object",
+      "required": ["arc_summary", "arcs", "beats"],
+      "properties": {
+        "arc_summary": { "type": "string", "description": "One-paragraph summary of the overall plot" },
+        "arcs": {
+          "type": "array",
+          "items": { "type": "object", "properties": { "arc_id": { "type": "string" }, "title": { "type": "string" }, "type": { "type": "string", "enum": ["main", "subplot", "character", "thematic"] }, "status": { "type": "string", "enum": ["setup", "developing", "climax", "resolved", "paying_off"] }, "promise_refs": { "type": "array", "items": { "type": "string" } } } }
+        },
+        "beats": {
+          "type": "array",
+          "items": { "type": "object", "properties": { "beat_id": { "type": "string" }, "description": { "type": "string" }, "arc_refs": { "type": "array", "items": { "type": "string" } }, "chapter_ref": { "type": "string" }, "order": { "type": "integer" } } }
+        }
+      }
+    },
+    "Timeline": {
+      "type": "array",
+      "items": { "type": "object", "properties": { "event_id": { "type": "string" }, "description": { "type": "string" }, "canonical_order": { "type": "integer" }, "textual_status": { "type": "string", "enum": ["direct", "inferred", "silence", "contradicted"] }, "chapter_refs": { "type": "array", "items": { "type": "string" } }, "sources": { "type": "array", "items": { "type": "string" } } }, "required": ["event_id", "description", "canonical_order"] }
+    },
+    "ChapterRef": {
+      "type": "object",
+      "required": ["chapter_id", "title", "sequence_order"],
+      "properties": {
+        "chapter_id": { "type": "string", "pattern": "^[0-9]+-[a-z0-9-]+$" },
+        "title": { "type": "string" },
+        "sequence_order": { "type": "integer" },
+        "status": { "type": "string", "enum": ["outlined", "drafting", "draft_complete", "review", "revised", "approved", "published"] },
+        "pov_character_ref": { "type": "string" },
+        "outline_ref": { "type": "string" },
+        "draft_ref": { "type": "string" },
+        "word_count": { "type": "integer" },
+        "phase_when_written": { "type": "string" },
+        "state_revision_when_written": { "type": "integer" }
+      }
+    },
+    "OpenQuestion": {
+      "type": "object",
+      "required": ["question_id", "question", "phase_origin", "status"],
+      "properties": {
+        "question_id": { "type": "string" },
+        "question": { "type": "string" },
+        "phase_origin": { "type": "string", "enum": ["concept", "worldbuilding", "plot", "drafting", "review"] },
+        "status": { "type": "string", "enum": ["open", "author_decided", "resolved_by_context", "deferred"] },
+        "options_considered": { "type": "array", "items": { "type": "string" } },
+        "author_decision": { "type": "string" },
+        "created_at_revision": { "type": "integer" }
+      }
+    },
+    "PromisePayoff": {
+      "type": "object",
+      "required": ["promise_id", "promise", "setup_chapter_refs", "payoff_status"],
+      "properties": {
+        "promise_id": { "type": "string" },
+        "promise": { "type": "string" },
+        "type": { "type": "string", "enum": ["explicit", "implicit", "foreshadowed", "emotional", "thematic"] },
+        "setup_chapter_refs": { "type": "array", "items": { "type": "string" } },
+        "payoff_status": { "type": "string", "enum": ["pending", "paying_off", "paid_off", "subverted"] },
+        "payoff_chapter_ref": { "type": "string" },
+        "notes": { "type": "string" }
+      }
+    },
+    "AuthorPreferences": {
+      "type": "object",
+      "description": "Author stylistic and creative preferences — separated from story canon",
+      "properties": {
+        "style_profile": { "type": "string", "description": "Authorial voice/style reference, e.g. 'Stephen King / Literary Horror'" },
+        "tone_axioms": { "type": "array", "items": { "type": "string" } },
+        "forbidden_tropes": { "type": "array", "items": { "type": "string" } },
+        "preferred_pov": { "type": "string", "enum": ["close_third", "first_person", "omniscient", "rotating", "other"] },
+        "tense": { "type": "string", "enum": ["past", "present"] },
+        "narrative_principles": { "type": "array", "items": { "type": "string" } },
+        "evidence_labels": { "type": "boolean", "description": "Whether epistemic verb discipline is required" },
+        "king_craft_stance": { "type": "string", "description": "How Stephen King craft references are used (e.g. 'style engine only, no copying')" }
+      }
+    },
+    "ContinuityRisk": {
+      "type": "object",
+      "required": ["risk_id", "description", "severity", "source"],
+      "properties": {
+        "risk_id": { "type": "string" },
+        "description": { "type": "string" },
+        "severity": { "type": "string", "enum": ["critical", "high", "medium", "low", "observed"] },
+        "source": { "type": "string", "description": "Which review or check flagged this" },
+        "chapter_refs": { "type": "array", "items": { "type": "string" } },
+        "status": { "type": "string", "enum": ["open", "addressed", "accepted_intentional", "false_positive"] },
+        "notes": { "type": "string" }
+      }
+    }
+  }
+}
