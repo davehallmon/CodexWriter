@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "source_state_commit": "43b7de05fb2acf85c1d3018965da3c08471bca1d",
+  "source_state_commit": "d221fafd34d97be35a67b52cf77ef97bf08cbf4a",
   "tasks": [
     {
       "id": "ARCH-01-01",
@@ -96,6 +96,37 @@
       "title": "Extract Dust and Ash material from reusable core",
       "status": "deferred",
       "component": "profile",
+      "evidence": [],
+      "commit": null
+    },
+    {
+      "id": "REL-01-01",
+      "milestone": "REL-01",
+      "title": "Select and add CodexWriter repository license",
+      "status": "pending",
+      "component": "licensing",
+      "evidence": [],
+      "commit": null
+    },
+    {
+      "id": "REL-01-02",
+      "milestone": "REL-01",
+      "title": "Resolve Lensetek license before implementation-level borrowing",
+      "status": "blocked",
+      "component": "provenance",
+      "evidence": [
+        "docs/architecture/seven-source-synthesis-ratification-addendum.md",
+        "ATTRIBUTION.md",
+        "ARCHITECTURE.md"
+      ],
+      "commit": null
+    },
+    {
+      "id": "REL-01-03",
+      "milestone": "REL-01",
+      "title": "Pin attribution references to source revisions",
+      "status": "pending",
+      "component": "attribution",
       "evidence": [],
       "commit": null
     }

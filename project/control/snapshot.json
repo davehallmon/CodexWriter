@@ -1,29 +1,38 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-29 18:26:01 UTC",
-  "active_branch": "main",
+  "generated_at": "2026-08-29 19:09:26 UTC",
+  "active_branch": "governance/reconcile-control-ledger-2026-08-29",
   "active_profile": "core",
-  "source_state_commit": "43b7de05fb2acf85c1d3018965da3c08471bca1d",
+  "source_state_commit": "d221fafd34d97be35a67b52cf77ef97bf08cbf4a",
   "run": {
-    "id": "GOV-2026-08-29-01",
+    "id": "GOV-REC-01",
     "status": "completed",
-    "summary": "Establish deterministic operational-control data and generated root views.",
+    "summary": "Reconcile governance decisions D4-D12, ruleset state, and release-readiness tracking.",
     "completed": [
-      "Defined canonical JSON control records.",
-      "Added deterministic Markdown generation and validation.",
-      "Added governance tests, CI, and ownership routing."
+      "Recorded D4-D12 as accepted in project/control/decisions.json",
+      "Bumped roadmap version to 1.1.0 and added REL-01 milestone",
+      "Added REL-01-01, REL-01-02, REL-01-03 to task ledger",
+      "Removed resolved blocker GOV-B02",
+      "Recorded ruleset 21815133 (Protect Main) as independently verified"
     ],
-    "work_in_progress": [
-      "Enable repository branch-protection settings."
-    ],
-    "result_commit": "43b7de05fb2acf85c1d3018965da3c08471bca1d",
-    "result_reference": "Main promotion merge commit."
+    "work_in_progress": [],
+    "result_commit": null,
+    "result_reference": "Resolving from Git history after commit exists"
   },
-  "blockers": [
+  "blockers": [],
+  "rulesets": [
     {
-      "id": "GOV-B02",
-      "severity": "high",
-      "description": "GitHub branch protection and required-check settings are not represented in repository files and must be enabled in repository settings."
+      "id": "21815133",
+      "name": "Protect Main",
+      "status": "active",
+      "target": "default_branch",
+      "requires_pull_requests": true,
+      "requires_review_thread_resolution": true,
+      "requires_strict_verify_status_checks": true,
+      "blocks_force_pushes": true,
+      "blocks_deletion": true,
+      "requires_approvals": 0,
+      "bypass_actors": []
     }
   ],
   "history": [
@@ -36,6 +45,11 @@
       "date": "2026-08-29",
       "commit": "43b7de05fb2acf85c1d3018965da3c08471bca1d",
       "summary": "Promoted the approved governance and architecture lineage to main."
+    },
+    {
+      "date": "2026-08-29",
+      "commit": null,
+      "summary": "Governance reconciliation: recorded D4-D12 accepted, ruleset 21815133 verified, and release-readiness tasks REL-01-01 through REL-01-03."
     }
   ]
 }
