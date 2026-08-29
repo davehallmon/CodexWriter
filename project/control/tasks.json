@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "source_state_commit": "d6384996c0bc47e38bfb139497a8a57f3c86d12c",
+  "tasks": [
+    {
+      "id": "ARCH-01-01",
+      "milestone": "ARCH-01",
+      "title": "Ratify architecture authority model",
+      "status": "verified",
+      "component": "architecture",
+      "evidence": [
+        "ARCHITECTURE.md",
+        "docs/architecture/seven-source-synthesis-ratification-addendum.md"
+      ],
+      "commit": "70861e660d7d7e5261482834397f5f6a97aa43d3"
+    },
+    {
+      "id": "ARCH-01-02",
+      "milestone": "ARCH-01",
+      "title": "Integrate ratified documentation corrections",
+      "status": "verified",
+      "component": "documentation",
+      "evidence": [
+        "ARCHITECTURE.md",
+        "docs/crosswalk.md",
+        "docs/decisions/2026-08-26-alignment-evaluation.md"
+      ],
+      "commit": "c416472035ad6a4fdf7cfe47b5232e068e671e5f"
+    },
+    {
+      "id": "CP1A-01",
+      "milestone": "CP1A",
+      "title": "Draft host-neutral transaction contract",
+      "status": "pending",
+      "component": "transaction-contract",
+      "evidence": [],
+      "commit": null
+    },
+    {
+      "id": "CP1A-02",
+      "milestone": "CP1A",
+      "title": "Implement schema-level validation logic",
+      "status": "pending",
+      "component": "validation",
+      "evidence": [],
+      "commit": null
+    },
+    {
+      "id": "CP1A-03",
+      "milestone": "CP1A",
+      "title": "Establish transactional derived-view rebuilds",
+      "status": "pending",
+      "component": "derived-views",
+      "evidence": [],
+      "commit": null
+    },
+    {
+      "id": "CP1A-04",
+      "milestone": "CP1A",
+      "title": "Implement append-only provenance and audit records",
+      "status": "pending",
+      "component": "audit",
+      "evidence": [],
+      "commit": null
+    },
+    {
+      "id": "CP1A-05",
+      "milestone": "CP1A",
+      "title": "Add generic fixtures, tests, and implementation CI",
+      "status": "pending",
+      "component": "verification",
+      "evidence": [],
+      "commit": null
+    },
+    {
+      "id": "CP1B-01",
+      "milestone": "CP1B",
+      "title": "Implement provenance-aware context assembler",
+      "status": "pending",
+      "component": "context-assembly",
+      "evidence": [],
+      "commit": null
+    },
+    {
+      "id": "CP2-01",
+      "milestone": "CP2",
+      "title": "Prove a two-phase specialist vertical slice",
+      "status": "pending",
+      "component": "orchestration",
+      "evidence": [],
+      "commit": null
+    },
+    {
+      "id": "PROFILE-01-01",
+      "milestone": "PROFILE-01",
+      "title": "Extract Dust and Ash material from reusable core",
+      "status": "deferred",
+      "component": "profile",
+      "evidence": [],
+      "commit": null
+    }
+  ]
+}

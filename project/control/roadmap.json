@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "roadmap_version": "1.0.0",
+  "title": "CodexWriter Master Framework Roadmap",
+  "status": "human-authorized",
+  "approval": {
+    "approved_by": "Dave Hallmon",
+    "approved_at": "2026-08-29",
+    "basis": "Repository owner instruction to implement the audited operational-control revisions"
+  },
+  "governing_source_commit": "d6384996c0bc47e38bfb139497a8a57f3c86d12c",
+  "amendment_policy": "Changes require a pull request, passing governance checks, and repository-owner approval.",
+  "milestones": [
+    {
+      "id": "ARCH-01",
+      "name": "Architecture and Source Alignment",
+      "status": "completed",
+      "deliverables": [
+        "Ratify the layered authority model and transaction boundaries.",
+        "Complete and reconcile the seven source analyses.",
+        "Record reusable-core and optional-profile boundaries."
+      ],
+      "exit_criteria": "Ratified architecture, source synthesis, crosswalk, and decision records are present and internally aligned."
+    },
+    {
+      "id": "CP1A",
+      "name": "Deterministic Transaction Spine",
+      "status": "planned",
+      "deliverables": [
+        "Define a host-neutral transaction contract.",
+        "Implement schema-level validation for governed canon state.",
+        "Add append-only provenance and audit records.",
+        "Rebuild derived views transactionally.",
+        "Prove the spine with fixtures, tests, and continuous integration."
+      ],
+      "exit_criteria": "A generic state transition is rejected on stale revision, validated before promotion, audited, and reproduced from fixtures in CI."
+    },
+    {
+      "id": "CP1B",
+      "name": "Context Assembly and Derived Views",
+      "status": "planned",
+      "deliverables": [
+        "Build provenance-aware context assembly.",
+        "Separate narrative, structured state, author memory, and derived views.",
+        "Verify deterministic invariants on a second host."
+      ],
+      "exit_criteria": "Context packages identify their sources and can be rebuilt without introducing unique facts."
+    },
+    {
+      "id": "CP2",
+      "name": "Specialist Orchestration Vertical Slice",
+      "status": "planned",
+      "deliverables": [
+        "Align specialist skill contracts with the ratified authority model.",
+        "Run a two-phase generic fiction workflow through the deterministic spine.",
+        "Demonstrate context-blind reader simulation and governed editorial approval."
+      ],
+      "exit_criteria": "The vertical slice executes through two specialist phases with validated state, explicit human gates, and reproducible evidence."
+    },
+    {
+      "id": "PROFILE-01",
+      "name": "Optional Dust and Ash Profile",
+      "status": "deferred",
+      "deliverables": [
+        "Extract project-specific Biblical, ANE, stylistic, and research material from the reusable core.",
+        "Declare profile activation and contamination-review rules."
+      ],
+      "exit_criteria": "The reusable framework operates without the profile and profile activation introduces only declared extensions."
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+name: Governance Views
+
+on:
+  pull_request:
+    paths:
+      - "project/control/**"
+      - "scripts/generate_operational_views.py"
+      - "tests/test_operational_views.py"
+      - "PROGRESS.md"
+      - "STATUS.md"
+      - "ROADMAP.md"
+      - "ENVIRONMENT.md"
+      - ".github/workflows/governance-views.yml"
+  push:
+    branches:
+      - main
+      - development
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Verify generated views
+        run: python3 scripts/generate_operational_views.py --check
+      - name: Run governance tests
+        run: python3 -m unittest discover -s tests -p "test_*.py"
