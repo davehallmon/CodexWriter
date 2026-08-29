@@ -115,6 +115,7 @@
       "status": "blocked",
       "component": "provenance",
       "evidence": [
+        "docs/source-analysis/lensetek.md",
         "docs/architecture/seven-source-synthesis-ratification-addendum.md",
         "ATTRIBUTION.md",
         "ARCHITECTURE.md"

@@ -17,7 +17,37 @@ class OperationalViewsTest(unittest.TestCase):
             MODULE.load("roadmap.json"),
             MODULE.load("tasks.json"),
             MODULE.load("snapshot.json"),
+            MODULE.load("decisions.json"),
         )
+
+    def test_commit_shorthand_validates(self):
+        self.assertTrue(MODULE._commit_sha("d221fafd34d97be35a67b52cf77ef97bf08cbf4a"))
+        self.assertTrue(MODULE._commit_sha("0" * 40))
+        self.assertFalse(MODULE._commit_sha("None"))
+        self.assertFalse(MODULE._commit_sha("short"))
+        self.assertFalse(MODULE._commit_sha("zz" + "0" * 38))
+        self.assertFalse(MODULE._commit_sha(None))
+        self.assertFalse(MODULE._commit_sha(12345))
+
+    def test_every_blocked_task_has_blocker(self):
+        snapshot = MODULE.load("snapshot.json")
+        tasks = MODULE.load("tasks.json")
+        MODULE.validate(MODULE.load("roadmap.json"), tasks, snapshot, MODULE.load("decisions.json"))
+
+    def test_ruleset_fields_have_expected_types(self):
+        snapshot = MODULE.load("snapshot.json")
+        for rs in snapshot.get("rulesets", []):
+            self.assertIsInstance(rs["id"], str)
+            self.assertIsInstance(rs["name"], str)
+            self.assertIsInstance(rs["status"], str)
+            self.assertIsInstance(rs["target"], str)
+            self.assertIsInstance(rs["requires_pull_requests"], bool)
+            self.assertIsInstance(rs["requires_review_thread_resolution"], bool)
+            self.assertIsInstance(rs["requires_strict_verify_status_checks"], bool)
+            self.assertIsInstance(rs["blocks_force_pushes"], bool)
+            self.assertIsInstance(rs["blocks_deletion"], bool)
+            self.assertIsInstance(rs["requires_approvals"], int)
+            self.assertIsInstance(rs["bypass_actors"], list)
 
     def test_committed_views_are_current(self):
         for path, expected in MODULE.render_all().items():

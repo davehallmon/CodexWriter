@@ -24,10 +24,11 @@
 ### Work In Progress
 
 ### Result Reference
-- Commit Reference: Resolved from Git history after commit
-- Note: Resolving from Git history after commit exists
+- Commit Reference: `f4f9fd53893c3c2b9de1374856535e903de8acfc`
+- Note: f4f9fd53893c3c2b9de1374856535e903de8acfc — governance: reconcile decisions, ruleset state, and release readiness
 
 ## 3. Active Blockers & Open Decisions
+- [REL-B01] (high): Implementation-level borrowing from Lensetek is blocked pending license resolution; clean-room CP1A work may proceed. (task `REL-01-02`)
 
 ## 4. Current Task Queue
 - [x] `ARCH-01-01` — Ratify architecture authority model (`verified`)
@@ -47,4 +48,4 @@
 ## 5. Short Log History
 - [2026-08-29]: Commit `d6384996c0bc47e38bfb139497a8a57f3c86d12c` — Established the root handoff file on the planning branch.
 - [2026-08-29]: Commit `43b7de05fb2acf85c1d3018965da3c08471bca1d` — Promoted the approved governance and architecture lineage to main.
-- [2026-08-29]: Commit `None` — Governance reconciliation: recorded D4-D12 accepted, ruleset 21815133 verified, and release-readiness tasks REL-01-01 through REL-01-03.
+- [2026-08-29]: Commit `f4f9fd53893c3c2b9de1374856535e903de8acfc` — Governance reconciliation: recorded D4-D12 accepted, ruleset 21815133 verified, and release-readiness tasks REL-01-01 through REL-01-03.
