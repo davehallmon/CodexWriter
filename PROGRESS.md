@@ -3,31 +3,32 @@
 # CodexWriter Operational Progress Log
 
 ## 1. System State Reference
-- Generated At: 2026-08-29 18:26:01 UTC
-- Active Branch: `main`
+- Generated At: 2026-08-29 19:09:26 UTC
+- Active Branch: `governance/reconcile-control-ledger-2026-08-29`
 - Active Profile: `core`
-- Source State Commit: `43b7de05fb2acf85c1d3018965da3c08471bca1d`
+- Source State Commit: `d221fafd34d97be35a67b52cf77ef97bf08cbf4a`
 - Commit Semantics: Source State Commit is the input state used to generate this view; it is not the self-referential commit containing this file.
 
 ## 2. Active Run Delta
-- Run ID: `GOV-2026-08-29-01`
+- Run ID: `GOV-REC-01`
 - Status: `completed`
-- Summary: Establish deterministic operational-control data and generated root views.
+- Summary: Reconcile governance decisions D4-D12, ruleset state, and release-readiness tracking.
 
 ### Work Completed This Session
-- Defined canonical JSON control records.
-- Added deterministic Markdown generation and validation.
-- Added governance tests, CI, and ownership routing.
+- Recorded D4-D12 as accepted in project/control/decisions.json
+- Bumped roadmap version to 1.1.0 and added REL-01 milestone
+- Added REL-01-01, REL-01-02, REL-01-03 to task ledger
+- Removed resolved blocker GOV-B02
+- Recorded ruleset 21815133 (Protect Main) as independently verified
 
 ### Work In Progress
-- Enable repository branch-protection settings.
 
 ### Result Reference
-- Commit Reference: `43b7de05fb2acf85c1d3018965da3c08471bca1d`
-- Note: Main promotion merge commit.
+- Commit Reference: `f4f9fd53893c3c2b9de1374856535e903de8acfc`
+- Note: f4f9fd53893c3c2b9de1374856535e903de8acfc — governance: reconcile decisions, ruleset state, and release readiness
 
 ## 3. Active Blockers & Open Decisions
-- [GOV-B02] (high): GitHub branch protection and required-check settings are not represented in repository files and must be enabled in repository settings.
+- [REL-B01] (high): Implementation-level borrowing from Lensetek is blocked pending license resolution; clean-room CP1A work may proceed. (task `REL-01-02`)
 
 ## 4. Current Task Queue
 - [x] `ARCH-01-01` — Ratify architecture authority model (`verified`)
@@ -40,7 +41,11 @@
 - [ ] `CP1B-01` — Implement provenance-aware context assembler (`pending`)
 - [ ] `CP2-01` — Prove a two-phase specialist vertical slice (`pending`)
 - [ ] `PROFILE-01-01` — Extract Dust and Ash material from reusable core (`deferred`)
+- [ ] `REL-01-01` — Select and add CodexWriter repository license (`pending`)
+- [ ] `REL-01-02` — Resolve Lensetek license before implementation-level borrowing (`blocked`)
+- [ ] `REL-01-03` — Pin attribution references to source revisions (`pending`)
 
 ## 5. Short Log History
 - [2026-08-29]: Commit `d6384996c0bc47e38bfb139497a8a57f3c86d12c` — Established the root handoff file on the planning branch.
 - [2026-08-29]: Commit `43b7de05fb2acf85c1d3018965da3c08471bca1d` — Promoted the approved governance and architecture lineage to main.
+- [2026-08-29]: Commit `f4f9fd53893c3c2b9de1374856535e903de8acfc` — Governance reconciliation: recorded D4-D12 accepted, ruleset 21815133 verified, and release-readiness tasks REL-01-01 through REL-01-03.
