@@ -194,7 +194,6 @@ def status_view(roadmap: dict[str, Any], tasks: dict[str, Any], snapshot: dict[s
     lines.extend([
         "",
         f"- Overall Framework: {total_verified} / {total_tasks} Tasks Verified",
-        "",
     ])
     lines.extend(["", "## 2. Itemized Verification Checklist"])
     for task in all_tasks:

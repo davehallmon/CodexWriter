@@ -166,9 +166,8 @@ class OperationalViewsTest(unittest.TestCase):
 
         status_text = MODULE.status_view(roadmap, tasks, snapshot)
 
-        self.assertIn("3 / 13 Tasks Verified", status_text)
+        self.assertIn("3 / 13 Tasks Verified\n\n## 2. Itemized Verification Checklist", status_text)
         self.assertNotIn("2 / 13 Tasks Verified", status_text)
-        self.assertIn("## 2. Itemized Verification Checklist", status_text)
 
 if __name__ == "__main__":
     unittest.main()
