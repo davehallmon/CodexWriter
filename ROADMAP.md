@@ -2,7 +2,7 @@
 
 # CodexWriter Master Framework Roadmap
 
-- Roadmap Version: `1.0.0`
+- Roadmap Version: `1.1.0`
 - Status: `human-authorized`
 - Approved By: Dave Hallmon
 - Approved At: 2026-08-29
@@ -47,3 +47,10 @@
 - Deliverable PROFILE-01.1: Extract project-specific Biblical, ANE, stylistic, and research material from the reusable core.
 - Deliverable PROFILE-01.2: Declare profile activation and contamination-review rules.
 - Exit Criteria: The reusable framework operates without the profile and profile activation introduces only declared extensions.
+
+### REL-01: Public Release Readiness
+- Status: `planned`
+- Deliverable REL-01.1: Select and add a CodexWriter repository license.
+- Deliverable REL-01.2: Resolve Lensetek licensing before implementation-level borrowing.
+- Deliverable REL-01.3: Pin mutable attribution references to verified source revisions.
+- Exit Criteria: CodexWriter has an explicit repository license, all implementation-level borrowing has verified licensing and provenance, and attribution references are immutable.

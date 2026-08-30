@@ -23,6 +23,69 @@
       "source": "PROGRESS.md at d6384996c0bc47e38bfb139497a8a57f3c86d12c"
     },
     {
+      "id": "D4",
+      "status": "accepted",
+      "title": "Continuity-state treatment",
+      "decision": "Adopt Option 3. Continuity findings are a non-authoritative, rebuildable derived view. Preserve continuity-check history in a separate append-only check log. The check log records execution and disposition history but is not story canon.",
+      "source": "docs/plans/schema-skill-impact-plan-2026-08-28.md Sections 11-14"
+    },
+    {
+      "id": "D5",
+      "status": "accepted",
+      "title": "Transaction-boundary expression",
+      "decision": "Adopt Option 4. Use a host-neutral runtime transaction record as the semantic contract. Git commit or merge may express the atomic repository boundary on Git-based hosts, but Git is not itself the transaction semantic. Preserve a separate audit record.",
+      "source": "docs/plans/schema-skill-impact-plan-2026-08-28.md Sections 11-14"
+    },
+    {
+      "id": "D6",
+      "status": "accepted",
+      "title": "Shared finding envelope",
+      "decision": "Adopt the recommended hybrid. Continuity and prose-editing findings use a shared finding/disposition envelope. Reader simulation uses a lighter observation envelope appropriate to descriptive reader response rather than directive editorial findings. Both formats must declare scope, evidence, confidence, determinism or judgment classification, and disposition where applicable.",
+      "source": "docs/plans/schema-skill-impact-plan-2026-08-28.md Sections 11-14"
+    },
+    {
+      "id": "D7",
+      "status": "accepted",
+      "title": "Dust & Ash profile mechanism",
+      "decision": "Adopt Option 4. Use profile-specific schema or configuration extensions for profile data and distinct profile skill variants where behavior materially diverges. Do not retain large profile-conditional branches inside reusable-core skills.",
+      "source": "docs/plans/schema-skill-impact-plan-2026-08-28.md Sections 11-14"
+    },
+    {
+      "id": "D8",
+      "status": "accepted",
+      "title": "Transaction/audit placement",
+      "decision": "Adopt Option 4. Canonical state files retain revision counters and references to relevant transaction and audit records. Transaction and audit records remain separate artifacts and are not story canon.",
+      "source": "docs/plans/schema-skill-impact-plan-2026-08-28.md Sections 11-14"
+    },
+    {
+      "id": "D9",
+      "status": "accepted",
+      "title": "Author-memory scope",
+      "decision": "Adopt Option 3. Use an author-scoped base profile with project-scoped overrides. Author memory remains outside story canon.",
+      "source": "docs/plans/schema-skill-impact-plan-2026-08-28.md Sections 11-14"
+    },
+    {
+      "id": "D10",
+      "status": "accepted",
+      "title": "Vertical-slice scope",
+      "decision": "Adopt Option 2. Build sequentially: 1) deterministic state spine; 2) creative and HITL path; 3) portability and second-host evidence. Each checkpoint requires review before the next begins.",
+      "source": "docs/plans/schema-skill-impact-plan-2026-08-28.md Sections 11-14"
+    },
+    {
+      "id": "D11",
+      "status": "accepted",
+      "title": "Export authority",
+      "decision": "Adopt Option 3. The compiled export remains a rebuildable derived view. Gate 5 approval authorizes a particular export snapshot and its provenance record; it does not replace canonical chapter drafts as authoritative prose.",
+      "source": "docs/plans/schema-skill-impact-plan-2026-08-28.md Sections 11-14"
+    },
+    {
+      "id": "D12",
+      "status": "accepted",
+      "title": "Two-host evidence timing",
+      "decision": "Adopt Option 2. Stabilize and verify the vertical slice on the primary host first. Gather second-host evidence afterward as a separate checkpoint.",
+      "source": "docs/plans/schema-skill-impact-plan-2026-08-28.md Sections 11-14"
+    },
+    {
       "id": "GOV-01",
       "status": "accepted",
       "title": "Use stable milestone identifiers",

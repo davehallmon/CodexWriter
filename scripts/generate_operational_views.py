@@ -27,7 +27,23 @@ def load(name: str) -> dict[str, Any]:
         return json.load(handle)
 
 
-def validate(roadmap: dict[str, Any], tasks: dict[str, Any], snapshot: dict[str, Any]) -> None:
+def _commit_sha(sha: str) -> bool:
+    """Return True when sha is a 40-character hexadecimal Git SHA."""
+    if not isinstance(sha, str) or len(sha) != 40:
+        return False
+    try:
+        int(sha, 16)
+    except (TypeError, ValueError):
+        return False
+    return True
+
+
+def validate(
+    roadmap: dict[str, Any],
+    tasks: dict[str, Any],
+    snapshot: dict[str, Any],
+    decisions: dict[str, Any] | None = None,
+) -> None:
     milestones = roadmap.get("milestones", [])
     milestone_ids = [item.get("id") for item in milestones]
     if len(milestone_ids) != len(set(milestone_ids)):
@@ -49,8 +65,66 @@ def validate(roadmap: dict[str, Any], tasks: dict[str, Any], snapshot: dict[str,
             if not task.get("commit") or not task.get("evidence"):
                 raise ValueError(f"verified task {task_id} requires commit and evidence")
 
+    # history entries must carry a valid 40-character hex commit SHA
+    for index, item in enumerate(snapshot.get("history", [])):
+        sha = item.get("commit")
+        if not _commit_sha(sha):
+            raise ValueError(
+                f"history entry {index} has invalid commit: {sha!r}"
+            )
+
+    # every blocked task must have a corresponding blocker entry
+    blocker_task_ids = {b.get("task_id") for b in snapshot.get("blockers", [])}
+    for task in tasks.get("tasks", []):
+        if task.get("status") == "blocked":
+            if task["id"] not in blocker_task_ids:
+                raise ValueError(
+                    f"blocked task {task['id']!r} has no snapshot blocker entry"
+                )
+
+    # every blocker task_id must reference an existing task
+    for blocker in snapshot.get("blockers", []):
+        tid = blocker.get("task_id")
+        if not tid or tid not in task_ids:
+            raise ValueError(
+                f"blocker task_id {tid!r} does not reference an existing task"
+            )
+
+    # ruleset records must contain required fields with expected types
+    for index, ruleset in enumerate(snapshot.get("rulesets", [])):
+        if not isinstance(ruleset.get("id"), str) or not ruleset["id"]:
+            raise ValueError(f"ruleset {index} missing string id")
+        if not isinstance(ruleset.get("name"), str) or not ruleset["name"]:
+            raise ValueError(f"ruleset {index} missing string name")
+        if not isinstance(ruleset.get("status"), str) or not ruleset["status"]:
+            raise ValueError(f"ruleset {index} missing string status")
+        if not isinstance(ruleset.get("target"), str) or not ruleset["target"]:
+            raise ValueError(f"ruleset {index} missing string target")
+        if not isinstance(ruleset.get("requires_pull_requests"), bool):
+            raise ValueError(f"ruleset {index} requires_pull_requests must be bool")
+        if not isinstance(ruleset.get("requires_review_thread_resolution"), bool):
+            raise ValueError(f"ruleset {index} requires_review_thread_resolution must be bool")
+        if not isinstance(ruleset.get("requires_strict_verify_status_checks"), bool):
+            raise ValueError(f"ruleset {index} requires_strict_verify_status_checks must be bool")
+        if not isinstance(ruleset.get("blocks_force_pushes"), bool):
+            raise ValueError(f"ruleset {index} blocks_force_pushes must be bool")
+        if not isinstance(ruleset.get("blocks_deletion"), bool):
+            raise ValueError(f"ruleset {index} blocks_deletion must be bool")
+        if not isinstance(ruleset.get("requires_approvals"), int) or isinstance(ruleset.get("requires_approvals"), bool):
+            raise ValueError(f"ruleset {index} requires_approvals must be int")
+        if ruleset.get("requires_approvals", 0) < 0:
+            raise ValueError(f"ruleset {index} requires_approvals must be non-negative")
+        if not isinstance(ruleset.get("bypass_actors"), list):
+            raise ValueError(f"ruleset {index} bypass_actors must be list")
+
     if tasks.get("source_state_commit") != snapshot.get("source_state_commit"):
         raise ValueError("tasks and snapshot must identify the same source state commit")
+
+    # decision IDs must be unique
+    if decisions is not None:
+        decision_ids = [d.get("id") for d in decisions.get("decisions", [])]
+        if len(decision_ids) != len(set(decision_ids)):
+            raise ValueError("decision IDs must be unique")
 
 
 def progress_view(tasks: dict[str, Any], snapshot: dict[str, Any]) -> str:
@@ -86,7 +160,8 @@ def progress_view(tasks: dict[str, Any], snapshot: dict[str, Any]) -> str:
         "## 3. Active Blockers & Open Decisions",
     ])
     for blocker in snapshot.get("blockers", []):
-        lines.append(f"- [{blocker['id']}] ({blocker['severity']}): {blocker['description']}")
+        task_link = f" (task `{blocker['task_id']}`)" if blocker.get("task_id") else ""
+        lines.append(f"- [{blocker['id']}] ({blocker['severity']}): {blocker['description']}{task_link}")
     lines.extend(["", "## 4. Current Task Queue"])
     for task in tasks.get("tasks", []):
         marker = "x" if task["status"] == "verified" else " "
@@ -208,8 +283,9 @@ def render_all() -> dict[Path, str]:
     roadmap = load("roadmap.json")
     tasks = load("tasks.json")
     snapshot = load("snapshot.json")
+    decisions = load("decisions.json")
     environment = load("environment.json")
-    validate(roadmap, tasks, snapshot)
+    validate(roadmap, tasks, snapshot, decisions)
     return {
         ROOT / "PROGRESS.md": progress_view(tasks, snapshot),
         ROOT / "STATUS.md": status_view(roadmap, tasks, snapshot),

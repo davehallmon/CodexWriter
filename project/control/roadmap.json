@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "roadmap_version": "1.0.0",
+  "roadmap_version": "1.1.0",
   "title": "CodexWriter Master Framework Roadmap",
   "status": "human-authorized",
   "approval": {
@@ -66,6 +66,17 @@
         "Declare profile activation and contamination-review rules."
       ],
       "exit_criteria": "The reusable framework operates without the profile and profile activation introduces only declared extensions."
+    },
+    {
+      "id": "REL-01",
+      "name": "Public Release Readiness",
+      "status": "planned",
+      "deliverables": [
+        "Select and add a CodexWriter repository license.",
+        "Resolve Lensetek licensing before implementation-level borrowing.",
+        "Pin mutable attribution references to verified source revisions."
+      ],
+      "exit_criteria": "CodexWriter has an explicit repository license, all implementation-level borrowing has verified licensing and provenance, and attribution references are immutable."
     }
   ]
 }
