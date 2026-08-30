@@ -1,23 +1,25 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-29 19:09:26 UTC",
-  "active_branch": "governance/reconcile-control-ledger-2026-08-29",
+  "generated_at": "2026-08-30 06:00:50 UTC",
+  "active_branch": "development",
   "active_profile": "core",
-  "source_state_commit": "d221fafd34d97be35a67b52cf77ef97bf08cbf4a",
+  "source_state_commit": "4ad606baf0697c942658885499a02dbe0505eaf3",
   "run": {
-    "id": "GOV-REC-01",
+    "id": "JUDGE-2026-08-30-01",
     "status": "completed",
-    "summary": "Reconcile governance decisions D4-D12, ruleset state, and release-readiness tracking.",
+    "summary": "Reconcile development with main and record the CP1A-01 design-review state.",
     "completed": [
-      "Recorded D4-D12 as accepted in project/control/decisions.json",
-      "Bumped roadmap version to 1.1.0 and added REL-01 milestone",
-      "Added REL-01-01, REL-01-02, REL-01-03 to task ledger",
-      "Removed resolved blocker GOV-B02",
-      "Recorded ruleset 21815133 (Protect Main) as independently verified"
+      "PR #15 merged and verified on main.",
+      "Governance reconciliation and strengthened validation prepared for synchronization to development.",
+      "Exact roadmap/task metrics independently evaluated.",
+      "CP1A-01 design review completed without accepting or implementing a contract artifact."
     ],
-    "work_in_progress": [],
-    "result_commit": "f4f9fd53893c3c2b9de1374856535e903de8acfc",
-    "result_reference": "f4f9fd53893c3c2b9de1374856535e903de8acfc — governance: reconcile decisions, ruleset state, and release readiness"
+    "work_in_progress": [
+      "Obtain the complete CP1A-01 blueprint evidence.",
+      "Obtain Human Mediator decisions for TXN-D01 through TXN-D11."
+    ],
+    "result_commit": null,
+    "result_reference": null
   },
   "blockers": [
     {
