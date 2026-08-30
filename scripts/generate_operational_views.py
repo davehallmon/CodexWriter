@@ -110,8 +110,10 @@ def validate(
             raise ValueError(f"ruleset {index} blocks_force_pushes must be bool")
         if not isinstance(ruleset.get("blocks_deletion"), bool):
             raise ValueError(f"ruleset {index} blocks_deletion must be bool")
-        if not isinstance(ruleset.get("requires_approvals"), int):
+        if not isinstance(ruleset.get("requires_approvals"), int) or isinstance(ruleset.get("requires_approvals"), bool):
             raise ValueError(f"ruleset {index} requires_approvals must be int")
+        if ruleset.get("requires_approvals", 0) < 0:
+            raise ValueError(f"ruleset {index} requires_approvals must be non-negative")
         if not isinstance(ruleset.get("bypass_actors"), list):
             raise ValueError(f"ruleset {index} bypass_actors must be list")
 
