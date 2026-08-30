@@ -148,5 +148,16 @@ class OperationalViewsTest(unittest.TestCase):
             MODULE.validate(VALID_ROADMAP, VALID_TASKS, snapshot, VALID_DECISIONS)
 
 
+    def test_overall_framework_count_rendered_from_task_data(self):
+        rendered = MODULE.render_all()
+        status_path = MODULE.ROOT / "STATUS.md"
+        status_text = status_path.read_text(encoding="utf-8")
+        tasks = MODULE.load("tasks.json")
+        total_verified = sum(task["status"] == "verified" for task in tasks["tasks"])
+        total_tasks = len(tasks["tasks"])
+        expected_line = f"- Overall Framework: {total_verified} / {total_tasks} Tasks Verified"
+        self.assertIn(expected_line, status_text)
+        self.assertIn("## 2. Itemized Verification Checklist", status_text)
+
 if __name__ == "__main__":
     unittest.main()

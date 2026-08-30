@@ -12,6 +12,9 @@ Generated from source state `4ad606baf0697c942658885499a02dbe0505eaf3` at 2026-0
 - PROFILE-01: Optional Dust and Ash Profile: 0 / 1 Tasks Verified (0%)
 - REL-01: Public Release Readiness: 0 / 3 Tasks Verified (0%)
 
+- Overall Framework: 2 / 13 Tasks Verified
+
+
 ## 2. Itemized Verification Checklist
 - [x] ARCH-01-01: Ratify architecture authority model (`70861e6`) — `verified`
 - [x] ARCH-01-02: Integrate ratified documentation corrections (`c416472`) — `verified`
