@@ -189,6 +189,12 @@ def status_view(roadmap: dict[str, Any], tasks: dict[str, Any], snapshot: dict[s
         total = len(members)
         percentage = round((verified / total) * 100) if total else 0
         lines.append(f"- {milestone['id']}: {milestone['name']}: {verified} / {total} Tasks Verified ({percentage}%)")
+    total_verified = sum(task["status"] == "verified" for task in all_tasks)
+    total_tasks = len(all_tasks)
+    lines.extend([
+        "",
+        f"- Overall Framework: {total_verified} / {total_tasks} Tasks Verified",
+    ])
     lines.extend(["", "## 2. Itemized Verification Checklist"])
     for task in all_tasks:
         marker = "x" if task["status"] == "verified" else " "
