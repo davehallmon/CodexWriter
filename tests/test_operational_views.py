@@ -148,5 +148,27 @@ class OperationalViewsTest(unittest.TestCase):
             MODULE.validate(VALID_ROADMAP, VALID_TASKS, snapshot, VALID_DECISIONS)
 
 
+    def test_overall_framework_count_rendered_from_task_data(self):
+        tasks = _copy(VALID_TASKS)
+        modified = False
+        for task in tasks["tasks"]:
+            if task["status"] == "pending":
+                task["status"] = "verified"
+                task["commit"] = "0" * 40
+                task["evidence"] = ["test-only-evidence.md"]
+                modified = True
+                break
+        self.assertTrue(modified, "expected at least one pending task to convert")
+
+        roadmap = _copy(VALID_ROADMAP)
+        snapshot = _copy(VALID_SNAPSHOT)
+        MODULE.validate(roadmap, tasks, snapshot, VALID_DECISIONS)
+
+        status_text = MODULE.status_view(roadmap, tasks, snapshot)
+
+        self.assertIn("3 / 13 Tasks Verified\n\n## 2. Itemized Verification Checklist", status_text)
+        self.assertNotIn("2 / 13 Tasks Verified", status_text)
+
+
 if __name__ == "__main__":
     unittest.main()
